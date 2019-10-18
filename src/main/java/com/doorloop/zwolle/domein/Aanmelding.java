@@ -13,6 +13,15 @@ public class Aanmelding {
     private String voornaam;
     private String achternaam;
     private int leeftijd;
+    private String telefoonnummer;
+
+    public String getTelefoonnummer() {
+        return telefoonnummer;
+    }
+
+    public void setTelefoonnummer(String telefoonnummer) {
+        this.telefoonnummer = telefoonnummer;
+    }
 
     public long getId() {
         return id;
