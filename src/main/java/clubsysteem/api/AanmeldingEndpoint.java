@@ -3,9 +3,7 @@ package clubsysteem.api;
 import clubsysteem.controller.AanmeldingService;
 import clubsysteem.domein.Aanmelding;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AanmeldingEndpoint {
@@ -14,8 +12,30 @@ public class AanmeldingEndpoint {
         AanmeldingService aanmeldingService;
 
         @PostMapping("/aanmelding")
-        public void saveObers(@RequestBody Aanmelding aanmelding) {
+        public void saveAanmelding(@RequestBody Aanmelding aanmelding) {
             aanmeldingService.saveAanmelding(aanmelding);
             System.out.println("jojo het werkt");
         }
-}
+
+        @GetMapping("/ledenlijst")
+        public Iterable<Aanmelding> geefLeden() {
+            return aanmeldingService.geefMeLeden();
+        }
+
+        @DeleteMapping (value = "/ledenlijst/{id}")
+        public void deleteLid(@PathVariable Long id){
+            aanmeldingService.deleteLid(id);
+            System.out.println(id + " is deleted");
+        };
+
+        @PatchMapping(value = "/ledenlijst")
+        public void updateLid(@RequestBody Aanmelding aanmelding){
+            aanmeldingService.updateLid(aanmelding);
+
+        }
+    }
+
+
+
+
+
