@@ -14,7 +14,7 @@ public class AanmeldingEndpoint {
         @PostMapping("/aanmelding")
         public void saveAanmelding(@RequestBody Aanmelding aanmelding) {
             aanmeldingService.saveAanmelding(aanmelding);
-            System.out.println("jojo het werkt");
+            System.out.println("Persoon is aangemeld");
         }
 
         @GetMapping("/ledenlijst")
@@ -25,13 +25,13 @@ public class AanmeldingEndpoint {
         @DeleteMapping (value = "/ledenlijst/{id}")
         public void deleteLid(@PathVariable Long id){
             aanmeldingService.deleteLid(id);
-            System.out.println(id + " is deleted");
+            System.out.println(id + " is verwijderd");
         };
 
         @PatchMapping(value = "/ledenlijst")
         public void updateLid(@RequestBody Aanmelding aanmelding){
             aanmeldingService.updateLid(aanmelding);
-
+            System.out.println(aanmelding + " is geupdate");
         }
     }
 

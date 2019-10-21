@@ -1,11 +1,10 @@
 package clubsysteem.domein;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name="TEAM")
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,6 +16,9 @@ public class Team {
     private String[] teamType;
     private String coach;
     private boolean wedstrijd;
+
+    @OneToMany(mappedBy = "team")
+    private Set<Aanmelding> aanmelding;
 
     public long getId() {
         return id;
