@@ -1,21 +1,32 @@
 package clubsysteem.domein;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator;
+
+import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.*;
+
 
 @Entity
+@Table(name="AANMELDING")
 public class Aanmelding {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     private String voornaam;
     private String achternaam;
-    private int leeftijd;
     private String telefoonnummer;
     private String email;
     private String wachtwoord;
+    private long age;
+
+    @JsonDeserialize(using=DateHandler.class)
+    private LocalDate geboortedatum;
+
+    @ManyToOne
+    @JoinColumn(name="team_id", nullable = true)
+    private Team team;
 
     public String getTelefoonnummer() {
         return telefoonnummer;
@@ -49,12 +60,20 @@ public class Aanmelding {
         this.achternaam = achternaam;
     }
 
-    public int getLeeftijd() {
-        return leeftijd;
+    public LocalDate getGeboortedatum() {
+        return geboortedatum;
     }
 
-    public void setLeeftijd(int leeftijd) {
-        this.leeftijd = leeftijd;
+    public void setGeboortedatum(LocalDate geboortedatum) {
+        this.geboortedatum = geboortedatum;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public String getEmail() {
@@ -73,4 +92,11 @@ public class Aanmelding {
         this.wachtwoord = wachtwoord;
     }
 
+    public long getAge() {
+        return age;
+    }
+
+    public void setAge(LocalDate geboortedatum) {
+        this.age = Period.between(geboortedatum, LocalDate.now()).getYears();
+    }
 }
