@@ -1,10 +1,10 @@
-package com.doorloop.zwolle;
+package clubsysteem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ZwolleApplicationTests {
+class ClubsysteemApplicationTests {
 
 	@Test
 	void contextLoads() {

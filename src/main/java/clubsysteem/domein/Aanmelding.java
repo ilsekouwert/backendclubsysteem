@@ -1,4 +1,4 @@
-package com.doorloop.zwolle.domein;
+package clubsysteem.domein;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
