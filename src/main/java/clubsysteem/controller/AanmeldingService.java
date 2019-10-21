@@ -1,6 +1,6 @@
-package com.doorloop.zwolle.controller;
+package clubsysteem.controller;
 
-import com.doorloop.zwolle.domein.Aanmelding;
+import clubsysteem.domein.Aanmelding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
