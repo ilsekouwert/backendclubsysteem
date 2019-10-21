@@ -14,6 +14,8 @@ public class Aanmelding {
     private String achternaam;
     private int leeftijd;
     private String telefoonnummer;
+    private String email;
+    private String wachtwoord;
 
     public String getTelefoonnummer() {
         return telefoonnummer;
@@ -71,6 +73,4 @@ public class Aanmelding {
         this.wachtwoord = wachtwoord;
     }
 
-    private String email;
-    private String wachtwoord;
 }
