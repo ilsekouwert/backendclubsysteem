@@ -19,14 +19,24 @@ public class AanmeldingEndpoint {
             System.out.println("Persoon is aangemeld");
         }
 
-        @GetMapping(value = "/ledenlijst/selectie")
+        /*@GetMapping(value = "/ledenlijst/selectie")
         public List<Aanmelding> geefSelectie (@RequestParam(value="search")String search){
             //je kan ook nog toevoegen aan hierboven (@RequestParam(value="mode")String mode) om specifieke selectie op een variabele door te voeren
             // if(mode.equals("voornaam")){
             return(List<Aanmelding>)aanmeldingService.findByVoornaam(search);
-        /*}else{
+        *//*}else{
             return(List<Aanmelding>)aanmeldingService.geefMeLeden();
+        }*//*
         }*/
+
+       /* @GetMapping(value = "/ledenlijst/niveau")
+        public List<Aanmelding> geefNiveau (@RequestParam(value="search")String search){
+            return(List<Aanmelding>)aanmeldingService.findByNiveau(search);
+        }*/
+
+        @GetMapping(value = "/ledenlijst/niveaugeslacht")
+        public List<Aanmelding> geefNiveauGeslacht (@RequestParam(value="niveau")String niveau, @RequestParam(value="geslacht") String geslacht) {
+            return (List<Aanmelding>) aanmeldingService.findByNiveau(niveau, geslacht);
         }
 
         @GetMapping("/ledenlijst")
