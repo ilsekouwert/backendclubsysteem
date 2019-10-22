@@ -21,6 +21,43 @@ public class Aanmelding {
     private String wachtwoord;
     private long age;
 
+    private String geslacht;
+    // private String[] rollen;
+    private String posities;
+    private String niveau;
+
+    public String getGeslacht() {
+        return geslacht;
+    }
+
+    public void setGeslacht(String geslacht) {
+        this.geslacht = geslacht;
+    }
+
+    /*public String[] getRollen() {
+        return rollen;
+    }*/
+
+    /*public void setRollen(String[] rollen) {
+        this.rollen = rollen;
+    }*/
+
+    public String getPosities() {
+        return posities;
+    }
+
+    public void setPosities(String posities) {
+        this.posities = posities;
+    }
+
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
+    }
+
     @JsonDeserialize(using=DateHandler.class)
     private LocalDate geboortedatum;
 

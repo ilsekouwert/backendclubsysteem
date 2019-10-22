@@ -4,6 +4,8 @@ import clubsysteem.domein.Aanmelding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class AanmeldingService {
@@ -26,5 +28,9 @@ public class AanmeldingService {
 
     public void updateLid(Aanmelding updates){
         aanmeldingRepository.save(updates);
+    }
+
+    public Iterable<Aanmelding> findByVoornaam(String voornaam){
+        return aanmeldingRepository.findByVoornaam(voornaam);
     }
 }
