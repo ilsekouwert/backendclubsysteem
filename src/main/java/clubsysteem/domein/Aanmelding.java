@@ -22,7 +22,9 @@ public class Aanmelding {
     private long age;
 
     private String geslacht;
-    // private String[] rollen;
+    private boolean speler;
+    private boolean trainer;
+    private boolean coach;
     private String posities;
     private String niveau;
 
@@ -131,6 +133,30 @@ public class Aanmelding {
 
     public long getAge() {
         return age;
+    }
+
+    public boolean isSpeler() {
+        return speler;
+    }
+
+    public void setSpeler(boolean speler) {
+        this.speler = speler;
+    }
+
+    public boolean isTrainer() {
+        return trainer;
+    }
+
+    public void setTrainer(boolean trainer) {
+        this.trainer = trainer;
+    }
+
+    public boolean isCoach() {
+        return coach;
+    }
+
+    public void setCoach(boolean coach) {
+        this.coach = coach;
     }
 
     public void calculateAge() {

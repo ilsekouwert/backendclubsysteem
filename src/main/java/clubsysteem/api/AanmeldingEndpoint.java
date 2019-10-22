@@ -36,6 +36,7 @@ public class AanmeldingEndpoint {
 
         @GetMapping(value = "/ledenlijst/niveaugeslacht")
         public List<Aanmelding> geefNiveauGeslacht (@RequestParam(value="niveau")String niveau, @RequestParam(value="geslacht") String geslacht) {
+            System.out.println("selectie is goed uitgevoerd");
             return (List<Aanmelding>) aanmeldingService.findByNiveau(niveau, geslacht);
         }
 
@@ -54,6 +55,12 @@ public class AanmeldingEndpoint {
         public void updateLid(@RequestBody Aanmelding aanmelding){
             aanmeldingService.updateLid(aanmelding);
             System.out.println(aanmelding + " is geupdate");
+        }
+
+        @GetMapping(value="/test")
+        public void test() {
+            System.out.println("test");
+            aanmeldingService.selectLid();
         }
 
 }
