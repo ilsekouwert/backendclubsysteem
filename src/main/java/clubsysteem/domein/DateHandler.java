@@ -22,7 +22,7 @@ public class DateHandler extends StdDeserializer<LocalDate> {
         throws IOException {
         String date = jsonparser.getText();
         try{
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             return LocalDate.parse(date, formatter).plusDays(1);
         } catch (Exception e) {
             return null;

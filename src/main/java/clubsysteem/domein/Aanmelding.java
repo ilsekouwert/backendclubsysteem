@@ -96,7 +96,7 @@ public class Aanmelding {
         return age;
     }
 
-    public void setAge(LocalDate geboortedatum) {
+    public void calculateAge() {
         this.age = Period.between(geboortedatum, LocalDate.now()).getYears();
     }
 }
