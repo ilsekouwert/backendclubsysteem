@@ -9,7 +9,11 @@ import java.util.List;
 
 @Component
 public interface AanmeldingRepository extends CrudRepository<Aanmelding, Long> {
-    @Query(value = "SELECT * FROM AANMELDING WHERE VOORNAAM = ?1", nativeQuery = true)
-    List<Aanmelding> findByVoornaam(String voornaam);
+    @Query(value = "SELECT * FROM AANMELDING WHERE NIVEAU = ?1 AND GESLACHT=?2", nativeQuery = true)
+    List<Aanmelding> findByNiveau(String niveau, String geslacht);
+
+
+    // List<Aanmelding> findByVoornaam(String voornaam);
+    // List<Aanmelding> findByGeslacht(String geslacht);
 
 }

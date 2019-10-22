@@ -30,7 +30,17 @@ public class AanmeldingService {
         aanmeldingRepository.save(updates);
     }
 
-    public Iterable<Aanmelding> findByVoornaam(String voornaam){
+    /*public Iterable<Aanmelding> findByVoornaam(String voornaam){
         return aanmeldingRepository.findByVoornaam(voornaam);
+    }*/
+
+    public Iterable<Aanmelding> findByNiveau(String niveau, String geslacht){
+        return aanmeldingRepository.findByNiveau(niveau, geslacht);
     }
+
+    /*public Iterable<Aanmelding> findByGeslacht(String geslacht){
+        return aanmeldingRepository.findByGeslacht(geslacht);
+    }*/
+
+
 }
