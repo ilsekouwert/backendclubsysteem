@@ -11,6 +11,7 @@ public class AanmeldingService {
     AanmeldingRepository aanmeldingRepository;
 
     public void saveAanmelding(Aanmelding aan){
+        aan.calculateAge();
         aanmeldingRepository.save(aan);
     }
 
