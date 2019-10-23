@@ -28,6 +28,13 @@ public class Aanmelding {
     private String posities;
     private String niveau;
 
+    @JsonDeserialize(using=DateHandler.class)
+    private LocalDate geboortedatum;
+
+    @ManyToOne
+    @JoinColumn(name="team_id", nullable = true)
+    private Team team;
+
     public String getGeslacht() {
         return geslacht;
     }
@@ -59,13 +66,6 @@ public class Aanmelding {
     public void setNiveau(String niveau) {
         this.niveau = niveau;
     }
-
-    @JsonDeserialize(using=DateHandler.class)
-    private LocalDate geboortedatum;
-
-    @ManyToOne
-    @JoinColumn(name="team_id", nullable = true)
-    private Team team;
 
     public String getTelefoonnummer() {
         return telefoonnummer;
