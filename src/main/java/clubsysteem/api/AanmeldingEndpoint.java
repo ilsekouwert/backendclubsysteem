@@ -57,10 +57,11 @@ public class AanmeldingEndpoint {
             System.out.println(aanmelding + " is geupdate");
         }
 
-        @GetMapping(value="/test")
-        public void test() {
-            System.out.println("test");
-            aanmeldingService.selectLid();
+        @GetMapping(value="/test/{lidId}/{teamId}")
+        public void test(@PathVariable Long lidId, @PathVariable Long teamId) {
+            System.out.println("test begin");
+            aanmeldingService.selectLid(lidId, teamId);
+            System.out.println("test eind");
         }
 
 }

@@ -10,7 +10,7 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     private String teamnaam;
-    private int niveau;
+    private String niveau;
     private String[] teamMembers;
     private String trainer;
     private String[] teamType;
@@ -38,11 +38,11 @@ public class Team {
         this.teamnaam = teamnaam;
     }
 
-    public int getNiveau() {
+    public String getNiveau() {
         return niveau;
     }
 
-    public void setNiveau(int niveau) {
+    public void setNiveau(String niveau) {
         this.niveau = niveau;
     }
 
