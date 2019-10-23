@@ -42,15 +42,15 @@ public class AanmeldingService {
         return aanmeldingRepository.findByNiveau(niveau, geslacht);
     }
 
-    public void selectLid(){
-        Optional<Aanmelding> aanmelding = aanmeldingRepository.findById(2L);
+    public void selectLid(Long lidId, Long teamId){
+        System.out.println("in select lid");
+        Optional<Aanmelding> aanmelding = aanmeldingRepository.findById(lidId);
+        Optional<Team> team = teamRepository.findById(teamId);
+        System.out.println(aanmelding);
         Aanmelding aanmelding2 = aanmelding.get();
-            Team hup = new Team();
-            hup.setNiveau(2);
-            Team a = teamRepository.save(hup);
-            aanmelding2.setTeam(a);
-            aanmeldingRepository.save(aanmelding2);
-        // System.out.println(aanmelding.get().getVoornaam() + " " + aanmelding.get().getAge());
+        Team team2 = team.get();
+        aanmelding2.setTeam(team2);
+        aanmeldingRepository.save(aanmelding2);
         System.out.println("het is gelukt");
     }
 
