@@ -2,6 +2,7 @@ package clubsysteem.api;
 
 import clubsysteem.controller.AanmeldingService;
 import clubsysteem.domein.Aanmelding;
+import clubsysteem.domein.AanmeldingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class AanmeldingEndpoint {
         }
 
         @GetMapping("/ledenlijst")
-        public Iterable<Aanmelding> geefLeden() {
+        public Iterable<AanmeldingDTO> geefLeden() {
             return aanmeldingService.geefMeLeden();
         }
 
@@ -57,11 +58,9 @@ public class AanmeldingEndpoint {
             System.out.println(aanmelding + " is geupdate");
         }
 
-        @GetMapping(value="/test/{lidId}/{teamId}")
+        @GetMapping(value="/lidtoevoegenteam/{lidId}/{teamId}")
         public void test(@PathVariable Long lidId, @PathVariable Long teamId) {
-            System.out.println("test begin");
             aanmeldingService.selectLid(lidId, teamId);
-            System.out.println("test eind");
         }
 
 }

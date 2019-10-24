@@ -1,10 +1,12 @@
 package clubsysteem.controller;
 
 import clubsysteem.domein.Aanmelding;
+import clubsysteem.domein.AanmeldingDTO;
 import clubsysteem.domein.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +28,11 @@ public class AanmeldingService {
         System.out.println("in de functie verwijderd: " + id);
     }
 
-    public Iterable<Aanmelding> geefMeLeden() {
-        return aanmeldingRepository.findAll();
+    public Iterable<AanmeldingDTO> geefMeLeden() {
+        List<AanmeldingDTO> ledenDTO = new ArrayList<>();
+        aanmeldingRepository.findAll().forEach(lid -> {ledenDTO.add(new AanmeldingDTO(lid));
+        });
+        return ledenDTO;
     }
 
     public void updateLid(Aanmelding updates){
@@ -43,15 +48,12 @@ public class AanmeldingService {
     }
 
     public void selectLid(Long lidId, Long teamId){
-        System.out.println("in select lid");
         Optional<Aanmelding> aanmelding = aanmeldingRepository.findById(lidId);
         Optional<Team> team = teamRepository.findById(teamId);
-        System.out.println(aanmelding);
         Aanmelding aanmelding2 = aanmelding.get();
         Team team2 = team.get();
         aanmelding2.setTeam(team2);
         aanmeldingRepository.save(aanmelding2);
-        System.out.println("het is gelukt");
     }
 
     /*public Iterable<Aanmelding> findByGeslacht(String geslacht){

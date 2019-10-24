@@ -26,7 +26,17 @@ public class Aanmelding {
     private boolean trainer;
     private boolean coach;
     private String posities;
+
+    public String getTrainniveau() {
+        return trainniveau;
+    }
+
+    public void setTrainniveau(String trainniveau) {
+        this.trainniveau = trainniveau;
+    }
+
     private String niveau;
+    private String trainniveau;
 
     @JsonDeserialize(using=DateHandler.class)
     private LocalDate geboortedatum;
