@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="TEAM")
+@Table(name = "TEAM")
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,8 +16,16 @@ public class Team {
     private String coach;
     private boolean wedstrijd;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private Set<Aanmelding> aanmelding;
+
+    public Set<Aanmelding> getAanmelding() {
+        return aanmelding;
+    }
+
+    public void setAanmelding(Set<Aanmelding> aanmelding) {
+        this.aanmelding = aanmelding;
+    }
 
     public long getId() {
         return id;
