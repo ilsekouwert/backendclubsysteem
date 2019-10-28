@@ -63,10 +63,18 @@ public class AanmeldingService {
         return geslachten;
     }
 
-    public List<AanmeldingDTO> findByPositie(String posities) {
+    public List<AanmeldingDTO> findByPositiesContaining(String posities) {
         List<AanmeldingDTO> pos = new ArrayList<>();
-        aanmeldingRepository.findByPosities(posities).forEach(lid -> {pos.add(new AanmeldingDTO(lid));}
-        );
+        aanmeldingRepository.findByPositiesContaining(posities).forEach(lid -> {pos.add(new AanmeldingDTO(lid));});
+/*        for (int i = 0; i < posities.length(); i++) {
+            String letter = posities.substring(i, i + 1);
+            System.out.println(letter);
+            aanmeldingRepository.findByPositiesContaining(letter).forEach(lid -> {
+                pos.add(new AanmeldingDTO(lid));
+            });
+        }*/
+
+
         return pos;
     }
 
@@ -86,12 +94,8 @@ public class AanmeldingService {
         Team team2 = team.get();
         aanmelding2.setTeam(team2);
         aanmeldingRepository.save(aanmelding2);
+        team2.updateSpeleraantal(1);
+        teamRepository.save(team2);
     }
-
-
-    /*public Iterable<Aanmelding> findByGeslacht(String geslacht){
-        return aanmeldingRepository.findByGeslacht(geslacht);
-    }*/
-
 
 }

@@ -61,9 +61,9 @@ public class AanmeldingEndpoint {
         return aanmeldingService.findByTeamId(teamId);
     }
 
-    @GetMapping(value = "/ledenlijst/posities")
+    @GetMapping(value = "/ledenlijst/zoekpositie/{posities}")
     public List<AanmeldingDTO> zoekposities(@PathVariable String posities) {
-        return aanmeldingService.findByPositie(posities);
+        return aanmeldingService.findByPositiesContaining(posities);
     }
 
     @DeleteMapping(value = "/ledenlijst/{id}")
@@ -71,8 +71,6 @@ public class AanmeldingEndpoint {
         aanmeldingService.deleteLid(id);
         System.out.println(id + " is verwijderd");
     }
-
-    ;
 
     @PatchMapping(value = "/ledenlijst")
     public void updateLid(@RequestBody Aanmelding aanmelding) {

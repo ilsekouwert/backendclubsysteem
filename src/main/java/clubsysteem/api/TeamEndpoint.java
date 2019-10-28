@@ -35,4 +35,6 @@ public class TeamEndpoint {
     public void updateTeam(@RequestBody Team team){
         teamService.updateTeam(team);
     }
+
+
 }
