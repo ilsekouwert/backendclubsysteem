@@ -50,14 +50,6 @@ public class Aanmelding {
         this.geslacht = geslacht;
     }
 
-    /*public String[] getRollen() {
-        return rollen;
-    }*/
-
-    /*public void setRollen(String[] rollen) {
-        this.rollen = rollen;
-    }*/
-
     public String getPosities() {
         return posities;
     }
