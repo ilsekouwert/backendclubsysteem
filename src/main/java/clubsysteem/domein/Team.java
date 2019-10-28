@@ -23,6 +23,18 @@ public class Team {
     @JsonIgnore
     private Set<Aanmelding> aanmelding;
 
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Training> training;
+
+    public Set<Training> getTraining() {
+        return training;
+    }
+
+    public void setTraining(Set<Training> training) {
+        this.training = training;
+    }
+
     public Set<Aanmelding> getAanmelding() {
         return aanmelding;
     }
@@ -97,6 +109,5 @@ public class Team {
 
     public void updateSpeleraantal(int spelerinvoer){
         this.speleraantal = this.speleraantal + spelerinvoer;
-        System.out.println("in update speler aantal " + this.speleraantal);
-    }
+        }
 }

@@ -36,5 +36,13 @@ public class TeamEndpoint {
         teamService.updateTeam(team);
     }
 
+    @GetMapping(value = "/teamlijst/trainertoevoegen/{lidId}/{teamId}")
+    public void trainerNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId) {
+        teamService.addTrainer(lidId, teamId);
+    }
 
+    @GetMapping(value = "/teamlijst/coachtoevoegen/{lidId}/{teamId}")
+    public void coachNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId) {
+        teamService.addCoach(lidId, teamId);
+    }
 }
