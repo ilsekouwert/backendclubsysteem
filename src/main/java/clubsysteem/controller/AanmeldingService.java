@@ -42,7 +42,7 @@ public class AanmeldingService {
     public List<AanmeldingDTO> findByNiveauAndGeslacht(String niveau, String geslacht) {
         List<AanmeldingDTO> nivGesl = new ArrayList<>();
         aanmeldingRepository.findByNiveauAndGeslacht(niveau, geslacht).forEach(lid -> {
-            nivGesl.add(new AanmeldingDTO());
+            nivGesl.add(new AanmeldingDTO(lid));
         });
         return nivGesl;
     }
@@ -50,7 +50,7 @@ public class AanmeldingService {
     public List<AanmeldingDTO> findByNiveau(String niveau) {
         List<AanmeldingDTO> niveaus = new ArrayList<>();
         aanmeldingRepository.findByNiveau(niveau).forEach(lid -> {
-            niveaus.add(new AanmeldingDTO());
+            niveaus.add(new AanmeldingDTO(lid));
         });
         return niveaus;
     }
@@ -58,14 +58,14 @@ public class AanmeldingService {
     public List<AanmeldingDTO> findByGeslacht(String geslacht) {
         List<AanmeldingDTO> geslachten = new ArrayList<>();
         aanmeldingRepository.findByGeslacht(geslacht).forEach(lid -> {
-            geslachten.add(new AanmeldingDTO());
+            geslachten.add(new AanmeldingDTO(lid));
         });
         return geslachten;
     }
 
     public List<AanmeldingDTO> findByPositie(String posities) {
         List<AanmeldingDTO> pos = new ArrayList<>();
-        aanmeldingRepository.findByPosities(posities).forEach(lid -> {pos.add(new AanmeldingDTO());}
+        aanmeldingRepository.findByPosities(posities).forEach(lid -> {pos.add(new AanmeldingDTO(lid));}
         );
         return pos;
     }
