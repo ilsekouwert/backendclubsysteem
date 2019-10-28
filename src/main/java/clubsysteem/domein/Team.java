@@ -11,9 +11,9 @@ public class Team {
     long id;
     private String teamnaam;
     private String niveau;
-    private String[] teamMembers;
+    // private String[] teamMembers;
     private String trainer;
-    private String[] teamType;
+    private String teamType;
     private String coach;
     private boolean wedstrijd;
 
@@ -46,13 +46,13 @@ public class Team {
         this.niveau = niveau;
     }
 
-    public String[] getTeamMembers() {
+    /*public String[] getTeamMembers() {
         return teamMembers;
-    }
+    }*/
 
-    public void setTeamMembers(String[] teamMembers) {
+   /* public void setTeamMembers(String[] teamMembers) {
         this.teamMembers = teamMembers;
-    }
+    }*/
 
     public String getTrainer() {
         return trainer;
@@ -62,11 +62,11 @@ public class Team {
         this.trainer = trainer;
     }
 
-    public String[] getTeamType() {
+    public String getTeamType() {
         return teamType;
     }
 
-    public void setTeamType(String[] teamType) {
+    public void setTeamType(String teamType) {
         this.teamType = teamType;
     }
 
