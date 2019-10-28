@@ -4,21 +4,30 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="TEAM")
+@Table(name = "TEAM")
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     private String teamnaam;
     private String niveau;
+
     // private String[] teamMembers;
     private String trainer;
     private String teamType;
     private String coach;
     private boolean wedstrijd;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
     private Set<Aanmelding> aanmelding;
+
+    public Set<Aanmelding> getAanmelding() {
+        return aanmelding;
+    }
+
+    public void setAanmelding(Set<Aanmelding> aanmelding) {
+        this.aanmelding = aanmelding;
+    }
 
     public long getId() {
         return id;
@@ -27,8 +36,6 @@ public class Team {
     public void setId(long id) {
         this.id = id;
     }
-
-
 
     public String getTeamnaam() {
         return teamnaam;
@@ -53,7 +60,6 @@ public class Team {
    /* public void setTeamMembers(String[] teamMembers) {
         this.teamMembers = teamMembers;
     }*/
-
     public String getTrainer() {
         return trainer;
     }

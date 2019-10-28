@@ -2,6 +2,7 @@ package clubsysteem.api;
 
 import clubsysteem.controller.AanmeldingService;
 import clubsysteem.domein.Aanmelding;
+import clubsysteem.domein.AanmeldingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,14 +11,14 @@ import java.util.List;
 @RestController
 public class AanmeldingEndpoint {
 
-        @Autowired
-        AanmeldingService aanmeldingService;
+    @Autowired
+    AanmeldingService aanmeldingService;
 
-        @PostMapping("/aanmelding")
-        public void saveAanmelding(@RequestBody Aanmelding aanmelding) {
-            aanmeldingService.saveAanmelding(aanmelding);
-            System.out.println("Persoon is aangemeld");
-        }
+    @PostMapping("/aanmelding")
+    public void saveAanmelding(@RequestBody Aanmelding aanmelding) {
+        aanmeldingService.saveAanmelding(aanmelding);
+        System.out.println("Persoon is aangemeld");
+    }
 
         /*@GetMapping(value = "/ledenlijst/selectie")
         public List<Aanmelding> geefSelectie (@RequestParam(value="search")String search){
@@ -34,35 +35,55 @@ public class AanmeldingEndpoint {
             return(List<Aanmelding>)aanmeldingService.findByNiveau(search);
         }*/
 
-        @GetMapping(value = "/ledenlijst/niveaugeslacht")
-        public List<Aanmelding> geefNiveauGeslacht (@RequestParam(value="niveau")String niveau, @RequestParam(value="geslacht") String geslacht) {
-            System.out.println("selectie is goed uitgevoerd");
-            return (List<Aanmelding>) aanmeldingService.findByNiveau(niveau, geslacht);
-        }
+    @GetMapping("/ledenlijst")
+    public Iterable<AanmeldingDTO> geefLeden() {
+        return aanmeldingService.geefMeLeden();
+    }
 
-        @GetMapping("/ledenlijst")
-        public Iterable<Aanmelding> geefLeden() {
-            return aanmeldingService.geefMeLeden();
-        }
+    @GetMapping(value = "/ledenlijst/niveaugeslacht")
+    public List<AanmeldingDTO> geefNiveauGeslacht(@RequestParam(value = "niveau") String niveau, @RequestParam(value = "geslacht") String geslacht) {
+        System.out.println("selectie is goed uitgevoerd");
+        return aanmeldingService.findByNiveauAndGeslacht(niveau, geslacht);
+    }
 
-        @DeleteMapping (value = "/ledenlijst/{id}")
-        public void deleteLid(@PathVariable Long id){
-            aanmeldingService.deleteLid(id);
-            System.out.println(id + " is verwijderd");
-        };
+    @GetMapping(value = "/ledenlijst/zoekgeslacht/{geslacht}")
+    public List<AanmeldingDTO> geefGeslacht(@PathVariable String geslacht) {
+        return aanmeldingService.findByGeslacht(geslacht);
+    }
 
-        @PatchMapping(value = "/ledenlijst")
-        public void updateLid(@RequestBody Aanmelding aanmelding){
-            aanmeldingService.updateLid(aanmelding);
-            System.out.println(aanmelding + " is geupdate");
-        }
+    @GetMapping(value = "/ledenlijst/zoekniveau/{niveau}")
+    public List<AanmeldingDTO> geefNiveau(@PathVariable String niveau) {
+        return aanmeldingService.findByNiveau(niveau);
+    }
 
-        @GetMapping(value="/test/{lidId}/{teamId}")
-        public void test(@PathVariable Long lidId, @PathVariable Long teamId) {
-            System.out.println("test begin");
-            aanmeldingService.selectLid(lidId, teamId);
-            System.out.println("test eind");
-        }
+    @GetMapping(value = "/ledenlijst/zoekteam/{teamId}")
+    public List<AanmeldingDTO> zoekTeam(@PathVariable Long teamId) {
+        return aanmeldingService.findByTeamId(teamId);
+    }
+
+    @GetMapping(value = "/ledenlijst/posities")
+    public List<AanmeldingDTO> zoekposities(@PathVariable String posities) {
+        return aanmeldingService.findByPositie(posities);
+    }
+
+    @DeleteMapping(value = "/ledenlijst/{id}")
+    public void deleteLid(@PathVariable Long id) {
+        aanmeldingService.deleteLid(id);
+        System.out.println(id + " is verwijderd");
+    }
+
+    ;
+
+    @PatchMapping(value = "/ledenlijst")
+    public void updateLid(@RequestBody Aanmelding aanmelding) {
+        aanmeldingService.updateLid(aanmelding);
+        System.out.println(aanmelding + " is geupdate");
+    }
+
+    @GetMapping(value = "/lidtoevoegenteam/{lidId}/{teamId}")
+    public void test(@PathVariable Long lidId, @PathVariable Long teamId) {
+        aanmeldingService.selectLid(lidId, teamId);
+    }
 
 }
 

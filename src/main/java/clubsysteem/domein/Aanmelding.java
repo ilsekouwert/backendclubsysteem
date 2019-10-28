@@ -1,15 +1,13 @@
 package clubsysteem.domein;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
+
 import java.time.*;
 
 
 @Entity
-@Table(name="AANMELDING")
+@Table(name = "AANMELDING")
 public class Aanmelding {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,12 +25,21 @@ public class Aanmelding {
     private boolean coach;
     private String posities;
     private String niveau;
+    private String trainniveau;
 
-    @JsonDeserialize(using=DateHandler.class)
     private LocalDate geboortedatum;
 
+    public String getTrainniveau() {
+        return trainniveau;
+    }
+
+    public void setTrainniveau(String trainniveau) {
+        this.trainniveau = trainniveau;
+    }
+
+
     @ManyToOne
-    @JoinColumn(name="team_id", nullable = true)
+    @JoinColumn(name = "teamId", nullable = true)
     private Team team;
 
     public String getGeslacht() {
