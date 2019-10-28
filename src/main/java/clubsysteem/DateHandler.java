@@ -1,4 +1,4 @@
-package clubsysteem.domein;
+package clubsysteem;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

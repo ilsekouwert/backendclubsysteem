@@ -1,10 +1,8 @@
 package clubsysteem.domein;
 
-
 import javax.persistence.*;
-
 import java.time.*;
-
+import java.util.Set;
 
 @Entity
 @Table(name = "AANMELDING")
@@ -18,7 +16,6 @@ public class Aanmelding {
     private String email;
     private String wachtwoord;
     private long age;
-
     private String geslacht;
     private boolean speler;
     private boolean trainer;
@@ -26,8 +23,11 @@ public class Aanmelding {
     private String posities;
     private String niveau;
     private String trainniveau;
-
     private LocalDate geboortedatum;
+
+    @ManyToOne
+    @JoinColumn(name = "teamId", nullable = true)
+    private Team team;
 
     public String getTrainniveau() {
         return trainniveau;
@@ -36,11 +36,6 @@ public class Aanmelding {
     public void setTrainniveau(String trainniveau) {
         this.trainniveau = trainniveau;
     }
-
-
-    @ManyToOne
-    @JoinColumn(name = "teamId", nullable = true)
-    private Team team;
 
     public String getGeslacht() {
         return geslacht;

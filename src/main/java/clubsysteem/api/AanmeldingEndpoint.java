@@ -79,7 +79,7 @@ public class AanmeldingEndpoint {
     }
 
     @GetMapping(value = "/lidtoevoegenteam/{lidId}/{teamId}")
-    public void test(@PathVariable Long lidId, @PathVariable Long teamId) {
+    public void lidNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId) {
         aanmeldingService.selectLid(lidId, teamId);
     }
 
