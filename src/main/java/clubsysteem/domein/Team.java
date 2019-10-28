@@ -1,5 +1,7 @@
 package clubsysteem.domein;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,14 +13,14 @@ public class Team {
     long id;
     private String teamnaam;
     private String niveau;
-
-    // private String[] teamMembers;
     private String trainer;
     private String teamType;
     private String coach;
     private boolean wedstrijd;
+    private int speleraantal;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Aanmelding> aanmelding;
 
     public Set<Aanmelding> getAanmelding() {
@@ -53,13 +55,6 @@ public class Team {
         this.niveau = niveau;
     }
 
-    /*public String[] getTeamMembers() {
-        return teamMembers;
-    }*/
-
-   /* public void setTeamMembers(String[] teamMembers) {
-        this.teamMembers = teamMembers;
-    }*/
     public String getTrainer() {
         return trainer;
     }
@@ -90,5 +85,18 @@ public class Team {
 
     public void setWedstrijd(boolean wedstrijd) {
         this.wedstrijd = wedstrijd;
+    }
+
+    public int getSpeleraantal() {
+        return speleraantal;
+    }
+
+  /*  public void setSpeleraantal(int speleraantal) {
+        this.speleraantal = speleraantal;
+    }*/
+
+    public void updateSpeleraantal(int spelerinvoer){
+        this.speleraantal = this.speleraantal + spelerinvoer;
+        System.out.println("in update speler aantal " + this.speleraantal);
     }
 }
