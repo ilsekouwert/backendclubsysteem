@@ -1,5 +1,7 @@
 package clubsysteem.domein;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,7 +20,8 @@ public class Team {
     private String coach;
     private boolean wedstrijd;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Aanmelding> aanmelding;
 
     public Set<Aanmelding> getAanmelding() {
