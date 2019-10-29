@@ -13,7 +13,7 @@ public interface AanmeldingRepository extends CrudRepository<Aanmelding, Long> {
     List<Aanmelding> findByNiveauAndGeslacht(String niveau, String geslacht);
     List<Aanmelding> findByNiveau(String niveau);
     List<Aanmelding> findByGeslacht(String geslacht);
-    List<Aanmelding> findByTeamId(long team_id);
+    List<Aanmelding> findByTeamId(Long team_id);
     List<Aanmelding> findByPositiesContaining(String posities);
     List<Aanmelding> findByNiveauAndGeslachtAndPositiesContaining(String niveau, String geslacht, String posities);
     List<Aanmelding> findBySpeler(boolean speler);

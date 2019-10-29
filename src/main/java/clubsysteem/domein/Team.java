@@ -13,9 +13,9 @@ public class Team {
     long id;
     private String teamnaam;
     private String niveau;
-    private Long trainerId;
+    //private Long trainerId;
     private String teamType;
-    private Long coachId;
+    //private Long coachId;
     private boolean wedstrijd;
     private int speleraantal;
 
@@ -26,6 +26,14 @@ public class Team {
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Training> training;
+
+    @OneToOne
+    @MapsId
+    private Trainer trainer;
+
+    @OneToOne
+    @MapsId
+    private Coach coach;
 
     public Set<Training> getTraining() {
         return training;
@@ -67,28 +75,12 @@ public class Team {
         this.niveau = niveau;
     }
 
-    public Long getTrainerId() {
-        return trainerId;
-    }
-
-    public void setTrainerId(Long trainerId) {
-        this.trainerId = trainerId;
-    }
-
     public String getTeamType() {
         return teamType;
     }
 
     public void setTeamType(String teamType) {
         this.teamType = teamType;
-    }
-
-    public Long getCoach() {
-        return coachId;
-    }
-
-    public void setCoach(Long coachId) {
-        this.coachId = coachId;
     }
 
     public boolean isWedstrijd() {
@@ -107,7 +99,23 @@ public class Team {
         this.speleraantal = speleraantal;
     }*/
 
-    public void updateSpeleraantal(int spelerinvoer){
+    public void updateSpeleraantal(int spelerinvoer) {
         this.speleraantal = this.speleraantal + spelerinvoer;
-        }
+    }
+
+    public Trainer getTrainer() {
+        return trainer;
+    }
+
+    public void setTrainer(Trainer trainer) {
+        this.trainer = trainer;
+    }
+
+    public Coach getCoach() {
+        return coach;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
+    }
 }

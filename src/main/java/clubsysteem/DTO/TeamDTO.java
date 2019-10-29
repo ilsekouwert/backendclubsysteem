@@ -5,6 +5,7 @@ import clubsysteem.controller.AanmeldingService;
 import clubsysteem.domein.Aanmelding;
 import clubsysteem.domein.Team;
 import org.springframework.beans.factory.annotation.Autowired;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Optional;
 
@@ -28,10 +29,20 @@ public class TeamDTO {
         this.id = team.getId();
         this.niveau = team.getNiveau();
         this.trainerNaam = trainerNaamKrijgen(team);
-        this.trainerId = team.getTrainerId();
+        //this.trainerId = team.getTrainer();
         this.teamType = team.getTeamType();
-        this.coachId = team.getCoach();
+        //this.coachId = team.getCoach();
         this.speleraantal = team.getSpeleraantal();
+    }
+
+
+
+    public Long trainerNaamKrijgen(Team team){
+        //Long trainerId = team.getTrainerId();
+        Aanmelding aan = aanmeldingRepository.findById(trainerId)
+                .orElseThrow(()-> new NotImplementedException());
+        System.out.println(trainerId);
+        return trainerId;
     }
 
     public Long getTrainerNaam() {
@@ -41,14 +52,6 @@ public class TeamDTO {
     public void setTrainerNaam(Long trainerNaam) {
         this.trainerNaam = trainerNaam;
     }
-
-    public Long trainerNaamKrijgen(Team team){
-        Long trainerId = team.getTrainerId();
-        //Optional<Aanmelding> aan = aanmeldingRepository.findById(trainerId);
-        System.out.println(trainerId);
-        return trainerId;
-    }
-
 
     public long getId() {
         return id;

@@ -1,8 +1,10 @@
 package clubsysteem.controller;
 
 import clubsysteem.domein.Aanmelding;
+import clubsysteem.domein.Coach;
 import clubsysteem.domein.Team;
 import clubsysteem.DTO.TeamDTO;
+import clubsysteem.domein.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +45,7 @@ public class TeamService {
         Team team2 = team.get();
         Aanmelding lid_aan = lid.get();
         Long trainer_id = lid_aan.getId();
-        team2.setTrainerId(trainer_id);
+        team2.setTrainer((Trainer) lid_aan);
         teamRepository.save(team2);
     }
 
@@ -53,7 +55,7 @@ public class TeamService {
         Team team2 = team.get();
         Aanmelding lid_aan = lid.get();
         Long coach_id = lid_aan.getId();
-        team2.setCoach(coach_id);
+        team2.setCoach((Coach) lid_aan);
         teamRepository.save(team2);
     }
 
