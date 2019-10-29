@@ -13,9 +13,9 @@ public class Team {
     long id;
     private String teamnaam;
     private String niveau;
-    private String trainer;
+    private Long trainerId;
     private String teamType;
-    private String coach;
+    private Long coachId;
     private boolean wedstrijd;
     private int speleraantal;
 
@@ -67,12 +67,12 @@ public class Team {
         this.niveau = niveau;
     }
 
-    public String getTrainer() {
-        return trainer;
+    public Long getTrainerId() {
+        return trainerId;
     }
 
-    public void setTrainer(String trainer) {
-        this.trainer = trainer;
+    public void setTrainerId(Long trainerId) {
+        this.trainerId = trainerId;
     }
 
     public String getTeamType() {
@@ -83,12 +83,12 @@ public class Team {
         this.teamType = teamType;
     }
 
-    public String getCoach() {
-        return coach;
+    public Long getCoach() {
+        return coachId;
     }
 
-    public void setCoach(String coach) {
-        this.coach = coach;
+    public void setCoach(Long coachId) {
+        this.coachId = coachId;
     }
 
     public boolean isWedstrijd() {
