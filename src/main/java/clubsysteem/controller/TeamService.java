@@ -2,9 +2,12 @@ package clubsysteem.controller;
 
 import clubsysteem.domein.Aanmelding;
 import clubsysteem.domein.Team;
+import clubsysteem.DTO.TeamDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,8 +26,10 @@ public class TeamService {
         System.out.println("team verwijderd " + id);
     }
 
-    public Iterable<Team> geefMeTeams(){
-        return teamRepository.findAll();
+    public Iterable<TeamDTO> geefMeTeams(){
+        List<TeamDTO> teamDTO = new ArrayList<>();
+        teamRepository.findAll().forEach(lid -> {teamDTO.add(new TeamDTO(lid));});
+        return teamDTO;
     }
 
     public void updateTeam(Team teamupdates){
@@ -37,8 +42,8 @@ public class TeamService {
         Optional<Aanmelding> lid = aanmeldingRepository.findById(lidId);
         Team team2 = team.get();
         Aanmelding lid_aan = lid.get();
-        String trainer_name = lid_aan.getVoornaam() + " " + lid_aan.getAchternaam() + " (id: " + lid_aan.getId() + ")" ;
-        team2.setTrainer(trainer_name);
+        Long trainer_id = lid_aan.getId();
+        team2.setTrainerId(trainer_id);
         teamRepository.save(team2);
     }
 
@@ -47,8 +52,14 @@ public class TeamService {
         Optional<Aanmelding> lid = aanmeldingRepository.findById(lidId);
         Team team2 = team.get();
         Aanmelding lid_aan = lid.get();
-        String coach_name = lid_aan.getVoornaam() + " " + lid_aan.getAchternaam() + " (id: " + lid_aan.getId() + ")" ;
-        team2.setCoach(coach_name);
+        Long coach_id = lid_aan.getId();
+        team2.setCoach(coach_id);
         teamRepository.save(team2);
+    }
+
+    public List<TeamDTO> findByTrainer(Long trainerId){
+        List<TeamDTO> selectie = new ArrayList<>();
+        teamRepository.findByTrainerId(trainerId).forEach(lid -> {selectie.add(new TeamDTO(lid));});
+    return selectie;
     }
 }

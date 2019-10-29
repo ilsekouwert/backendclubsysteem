@@ -2,10 +2,9 @@ package clubsysteem.api;
 
 import clubsysteem.controller.TeamService;
 import clubsysteem.domein.Team;
+import clubsysteem.DTO.TeamDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -21,7 +20,7 @@ public class TeamEndpoint {
     }
 
     @GetMapping("/teamlijst")
-    public Iterable<Team> geefTeams(){
+    public Iterable<TeamDTO> geefTeams(){
         return teamService.geefMeTeams();
     }
 
@@ -44,5 +43,11 @@ public class TeamEndpoint {
     @GetMapping(value = "/teamlijst/coachtoevoegen/{lidId}/{teamId}")
     public void coachNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId) {
         teamService.addCoach(lidId, teamId);
+    }
+
+    @GetMapping(value = "/teamlijst/trainervinden/{lidId}")
+    public Iterable<TeamDTO> trainerVinden(@PathVariable Long lidId){
+        System.out.println(lidId);
+        return teamService.findByTrainer(lidId);
     }
 }

@@ -1,8 +1,11 @@
 package clubsysteem.api;
 
+import clubsysteem.DTO.AanmeldingDTO;
+import clubsysteem.DTO.CoachDTO;
+import clubsysteem.DTO.SpelerDTO;
+import clubsysteem.DTO.TrainerDTO;
 import clubsysteem.controller.AanmeldingService;
-import clubsysteem.domein.Aanmelding;
-import clubsysteem.domein.AanmeldingDTO;
+import clubsysteem.domein.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -31,50 +34,55 @@ public class AanmeldingEndpoint {
         System.out.println(aanmelding + " is geupdate");
     }
 
-        /*@GetMapping(value = "/ledenlijst/selectie")
-        public List<Aanmelding> geefSelectie (@RequestParam(value="search")String search){
-            //je kan ook nog toevoegen aan hierboven (@RequestParam(value="mode")String mode) om specifieke selectie op een variabele door te voeren
-            // if(mode.equals("voornaam")){
-            return(List<Aanmelding>)aanmeldingService.findByVoornaam(search);
-        *//*}else{
-            return(List<Aanmelding>)aanmeldingService.geefMeLeden();
-        }*//*
-        }*/
-
-       /* @GetMapping(value = "/ledenlijst/niveau")
-        public List<Aanmelding> geefNiveau (@RequestParam(value="search")String search){
-            return(List<Aanmelding>)aanmeldingService.findByNiveau(search);
-        }*/
-
     @GetMapping("/ledenlijst")
     public Iterable<AanmeldingDTO> geefLeden() {
         return aanmeldingService.geefMeLeden();
     }
 
-    @GetMapping(value = "/ledenlijst/niveaugeslacht")
+    @GetMapping("/spelerslijst/{speler}")
+    public Iterable<SpelerDTO> vindLeden(@PathVariable boolean speler){
+        return aanmeldingService.findBySpeler(speler);
+    }
+
+    @GetMapping("/trainerslijst/{trainer}")
+    public Iterable<TrainerDTO> vindTrainers(@PathVariable boolean trainer){
+        return aanmeldingService.findByTrainer(trainer);
+    }
+
+    @GetMapping("/coachlijst/{coach}")
+    public Iterable<CoachDTO> vindCoaches(@PathVariable boolean coach){
+        return aanmeldingService.findByCoach(coach);
+    }
+
+    @GetMapping(value = "/spelerslijst/zoekgeslacht/{geslacht}")
+    public List<AanmeldingDTO> geefGeslacht(@PathVariable String geslacht) {
+        return aanmeldingService.findByGeslacht(geslacht);
+    }
+
+    @GetMapping(value = "/spelerslijst/zoekniveau/{niveau}")
+    public List<AanmeldingDTO> geefNiveau(@PathVariable String niveau) {
+        return aanmeldingService.findByNiveau(niveau);
+    }
+
+    @GetMapping(value = "/spelerslijst/zoekteam/{teamId}")
+    public List<AanmeldingDTO> zoekTeam(@PathVariable Long teamId) {
+        return aanmeldingService.findByTeamId(teamId);
+    }
+
+    @GetMapping(value = "/spelerslijst/zoekpositie/{posities}")
+    public List<AanmeldingDTO> zoekposities(@PathVariable String posities) {
+        return aanmeldingService.findByPositiesContaining(posities);
+    }
+
+    @GetMapping(value = "/spelerslijst/niveaugeslacht")
     public List<AanmeldingDTO> geefNiveauGeslacht(@RequestParam(value = "niveau") String niveau, @RequestParam(value = "geslacht") String geslacht) {
         System.out.println("selectie is goed uitgevoerd");
         return aanmeldingService.findByNiveauAndGeslacht(niveau, geslacht);
     }
 
-    @GetMapping(value = "/ledenlijst/zoekgeslacht/{geslacht}")
-    public List<AanmeldingDTO> geefGeslacht(@PathVariable String geslacht) {
-        return aanmeldingService.findByGeslacht(geslacht);
-    }
-
-    @GetMapping(value = "/ledenlijst/zoekniveau/{niveau}")
-    public List<AanmeldingDTO> geefNiveau(@PathVariable String niveau) {
-        return aanmeldingService.findByNiveau(niveau);
-    }
-
-    @GetMapping(value = "/ledenlijst/zoekteam/{teamId}")
-    public List<AanmeldingDTO> zoekTeam(@PathVariable Long teamId) {
-        return aanmeldingService.findByTeamId(teamId);
-    }
-
-    @GetMapping(value = "/ledenlijst/zoekpositie/{posities}")
-    public List<AanmeldingDTO> zoekposities(@PathVariable String posities) {
-        return aanmeldingService.findByPositiesContaining(posities);
+    @GetMapping(value = "/spelerslijst/zoekcombo/{geslacht}/{niveau}/{positie}")
+    public List<AanmeldingDTO> zoekCombo(@PathVariable String geslacht, @PathVariable String niveau, @PathVariable String positie) {
+        return aanmeldingService.findByNiveauAndGeslachtAndPositiesContaining(niveau, geslacht, positie);
     }
 
     @GetMapping(value = "/lidtoevoegenteam/{lidId}/{teamId}")
