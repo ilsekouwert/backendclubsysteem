@@ -14,7 +14,7 @@ public interface AanmeldingRepository extends JpaRepository<Aanmelding, Long> {
     List<Aanmelding> findByNiveau(String niveau);
     List<Aanmelding> findByGeslacht(String geslacht);
     List<Aanmelding> findByTeamId(long team_id);
-    List<Aanmelding> findByPosities(String posities);
+    List<Aanmelding> findByPositiesContaining(String posities);
     List<Aanmelding> findByVoornaam(String voornaam);
 
 

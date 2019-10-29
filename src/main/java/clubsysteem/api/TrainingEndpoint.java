@@ -21,4 +21,17 @@ public class TrainingEndpoint {
         trainingService.deleteTraining(id);
         System.out.println(id + " de training is verwijderd");
     }
+
+    @PostMapping ("/trainingen/maaktraining/{hoeveel}/{team}")
+    public void maakTraining(@RequestBody Training training, @PathVariable int hoeveel, @PathVariable Long team){
+        trainingService.trainingenMaken(training, hoeveel, team);
+        System.out.println("Trainingen gemaakt");
+    }
+
+    @PatchMapping("/teamupdaten")
+    public void updateTraining(@RequestBody Training training){
+        trainingService.updateTraining(training);
+        System.out.println(training + " is geupdate");
+    }
+
 }

@@ -13,16 +13,27 @@ public class Team {
     long id;
     private String teamnaam;
     private String niveau;
-
-    // private String[] teamMembers;
     private String trainer;
     private String teamType;
     private String coach;
     private boolean wedstrijd;
+    private int speleraantal;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Aanmelding> aanmelding;
+
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Training> training;
+
+    public Set<Training> getTraining() {
+        return training;
+    }
+
+    public void setTraining(Set<Training> training) {
+        this.training = training;
+    }
 
     public Set<Aanmelding> getAanmelding() {
         return aanmelding;
@@ -56,13 +67,6 @@ public class Team {
         this.niveau = niveau;
     }
 
-    /*public String[] getTeamMembers() {
-        return teamMembers;
-    }*/
-
-   /* public void setTeamMembers(String[] teamMembers) {
-        this.teamMembers = teamMembers;
-    }*/
     public String getTrainer() {
         return trainer;
     }
@@ -94,4 +98,16 @@ public class Team {
     public void setWedstrijd(boolean wedstrijd) {
         this.wedstrijd = wedstrijd;
     }
+
+    public int getSpeleraantal() {
+        return speleraantal;
+    }
+
+  /*  public void setSpeleraantal(int speleraantal) {
+        this.speleraantal = speleraantal;
+    }*/
+
+    public void updateSpeleraantal(int spelerinvoer){
+        this.speleraantal = this.speleraantal + spelerinvoer;
+        }
 }
