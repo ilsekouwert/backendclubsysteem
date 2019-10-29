@@ -28,4 +28,10 @@ public class TrainingEndpoint {
         System.out.println("Trainingen gemaakt");
     }
 
+    @PatchMapping("/teamupdaten")
+    public void updateTraining(@RequestBody Training training){
+        trainingService.updateTraining(training);
+        System.out.println(training + " is geupdate");
+    }
+
 }

@@ -5,7 +5,6 @@ import clubsysteem.domein.Aanmelding;
 import clubsysteem.domein.AanmeldingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -18,6 +17,18 @@ public class AanmeldingEndpoint {
     public void saveAanmelding(@RequestBody Aanmelding aanmelding) {
         aanmeldingService.saveAanmelding(aanmelding);
         System.out.println("Persoon is aangemeld");
+    }
+
+    @DeleteMapping(value = "/ledenlijst/{id}")
+    public void deleteLid(@PathVariable Long id) {
+        aanmeldingService.deleteLid(id);
+        System.out.println(id + " is verwijderd");
+    }
+
+    @PatchMapping(value = "/ledenlijst")
+    public void updateLid(@RequestBody Aanmelding aanmelding) {
+        aanmeldingService.updateLid(aanmelding);
+        System.out.println(aanmelding + " is geupdate");
     }
 
         /*@GetMapping(value = "/ledenlijst/selectie")
@@ -64,18 +75,6 @@ public class AanmeldingEndpoint {
     @GetMapping(value = "/ledenlijst/zoekpositie/{posities}")
     public List<AanmeldingDTO> zoekposities(@PathVariable String posities) {
         return aanmeldingService.findByPositiesContaining(posities);
-    }
-
-    @DeleteMapping(value = "/ledenlijst/{id}")
-    public void deleteLid(@PathVariable Long id) {
-        aanmeldingService.deleteLid(id);
-        System.out.println(id + " is verwijderd");
-    }
-
-    @PatchMapping(value = "/ledenlijst")
-    public void updateLid(@RequestBody Aanmelding aanmelding) {
-        aanmeldingService.updateLid(aanmelding);
-        System.out.println(aanmelding + " is geupdate");
     }
 
     @GetMapping(value = "/lidtoevoegenteam/{lidId}/{teamId}")
