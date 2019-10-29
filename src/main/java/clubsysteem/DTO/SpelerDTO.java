@@ -1,6 +1,8 @@
-package clubsysteem.domein;
+package clubsysteem.DTO;
 
-public class AanmeldingDTO {
+import clubsysteem.domein.Aanmelding;
+
+public class SpelerDTO {
     private long id;
     private String voornaam;
     private String achternaam;
@@ -10,8 +12,7 @@ public class AanmeldingDTO {
     private String niveau;
     private long teamId;
 
-    public AanmeldingDTO(){}
-    public AanmeldingDTO(Aanmelding aanmelding){
+    public SpelerDTO(Aanmelding aanmelding){
         this.id = aanmelding.getId();
         this.voornaam = aanmelding.getVoornaam();
         this.achternaam = aanmelding.getAchternaam();

@@ -1,8 +1,10 @@
 package clubsysteem.controller;
 
-import clubsysteem.domein.Aanmelding;
-import clubsysteem.domein.AanmeldingDTO;
-import clubsysteem.domein.Team;
+import clubsysteem.DTO.AanmeldingDTO;
+import clubsysteem.DTO.CoachDTO;
+import clubsysteem.DTO.SpelerDTO;
+import clubsysteem.DTO.TrainerDTO;
+import clubsysteem.domein.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -34,16 +36,15 @@ public class AanmeldingService {
         return ledenDTO;
     }
 
-    public void updateLid(Aanmelding updates) {
-        aanmeldingRepository.save(updates);
+    public List<SpelerDTO> findBySpeler(boolean speler){
+        List <SpelerDTO> selectie = new ArrayList<>();
+        aanmeldingRepository.findBySpeler(speler).forEach(lid -> {selectie.add(new SpelerDTO(lid));});
+        return selectie;
     }
 
-    public List<AanmeldingDTO> findByNiveauAndGeslacht(String niveau, String geslacht) {
-        List<AanmeldingDTO> nivGesl = new ArrayList<>();
-        aanmeldingRepository.findByNiveauAndGeslacht(niveau, geslacht).forEach(lid -> {
-            nivGesl.add(new AanmeldingDTO(lid));
-        });
-        return nivGesl;
+
+    public void updateLid(Aanmelding updates) {
+        aanmeldingRepository.save(updates);
     }
 
     public List<AanmeldingDTO> findByNiveau(String niveau) {
@@ -64,7 +65,9 @@ public class AanmeldingService {
 
     public List<AanmeldingDTO> findByPositiesContaining(String posities) {
         List<AanmeldingDTO> pos = new ArrayList<>();
-        aanmeldingRepository.findByPositiesContaining(posities).forEach(lid -> {pos.add(new AanmeldingDTO(lid));});
+        aanmeldingRepository.findByPositiesContaining(posities).forEach(lid -> {
+            pos.add(new AanmeldingDTO(lid));
+        });
 /*        for (int i = 0; i < posities.length(); i++) {
             String letter = posities.substring(i, i + 1);
             System.out.println(letter);
@@ -77,7 +80,23 @@ public class AanmeldingService {
         return pos;
     }
 
-    public List<AanmeldingDTO> findByTeamId(long team_id) {
+    public List<AanmeldingDTO> findByNiveauAndGeslacht(String niveau, String geslacht) {
+        List<AanmeldingDTO> nivGesl = new ArrayList<>();
+        aanmeldingRepository.findByNiveauAndGeslacht(niveau, geslacht).forEach(lid -> {
+            nivGesl.add(new AanmeldingDTO(lid));
+        });
+        return nivGesl;
+    }
+
+    public List<AanmeldingDTO> findByNiveauAndGeslachtAndPositiesContaining(String niveau, String geslacht, String posities) {
+        List<AanmeldingDTO> nivGesPos = new ArrayList<>();
+        aanmeldingRepository.findByNiveauAndGeslachtAndPositiesContaining(niveau, geslacht, posities).forEach(lid -> {
+            nivGesPos.add(new AanmeldingDTO(lid));
+        });
+        return nivGesPos;
+    }
+
+    public List<AanmeldingDTO> findByTeamId(Long team_id) {
         List<AanmeldingDTO> teamDTO = new ArrayList<>();
         aanmeldingRepository.findByTeamId(team_id).forEach(lid -> {
             teamDTO.add(new AanmeldingDTO(lid));
@@ -97,4 +116,16 @@ public class AanmeldingService {
         teamRepository.save(team2);
     }
 
+    public Iterable<TrainerDTO> findByTrainer(boolean trainer) {
+        List <TrainerDTO> selectie = new ArrayList<>();
+        aanmeldingRepository.findByTrainer(trainer).forEach(lid -> {selectie.add(new TrainerDTO(lid));});
+        return selectie;
+    }
+
+    public Iterable<CoachDTO> findByCoach(boolean coach) {
+        List <CoachDTO> selectie = new ArrayList<>();
+        aanmeldingRepository.findByCoach(coach).forEach(lid -> {selectie.add(new CoachDTO(lid));});
+        return selectie;
+
+    }
 }
