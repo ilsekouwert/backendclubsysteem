@@ -10,10 +10,10 @@ public class LidDTO {
     private String geslacht;
     private String posities;
     private String niveau;
-    private long teamId;
     private boolean isSpeler;
     private boolean isTrainer;
     private boolean isCoach;
+    private String teamNaam;
 
     public LidDTO(){}
     public LidDTO(Lid lid){
@@ -25,6 +25,7 @@ public class LidDTO {
             this.posities = lid.getPosities();
             this.niveau = lid.getNiveau();
             this.isSpeler = lid.isSpeler();
+            this.teamNaam = lid.krijgTeamNaam(lid);
     }
 
     public long getId() {
@@ -83,14 +84,6 @@ public class LidDTO {
         this.niveau = niveau;
     }
 
-    public long getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(long teamId) {
-        this.teamId = teamId;
-    }
-
     public boolean isTrainer() {
         return isTrainer;
     }
@@ -113,5 +106,9 @@ public class LidDTO {
 
     public void setSpeler(boolean speler) {
         isSpeler = speler;
+    }
+
+    public String getTeamNaam() {
+        return teamNaam;
     }
 }

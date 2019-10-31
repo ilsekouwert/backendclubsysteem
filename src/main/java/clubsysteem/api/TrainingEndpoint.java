@@ -34,4 +34,8 @@ public class TrainingEndpoint {
         System.out.println(training + " is geupdate");
     }
 
+    @GetMapping ("/training/voegtoe/{lidId}/{teamId}")
+    public void spelerNaarTraining(@PathVariable Long lidId, @PathVariable Long teamId){
+        trainingService.voegLidToeAanTraining(lidId, teamId);
+    }
 }

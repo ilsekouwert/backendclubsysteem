@@ -31,7 +31,7 @@ public class Lid {
     private List<Teamkoppel> teamkoppels;
 
     @ManyToMany(mappedBy = "lid")
-    private Set<Training> trainingen;
+    private List<Training> trainingen;
 
     public List<Teamkoppel> getTeamkoppels() {
         return teamkoppels;
@@ -54,14 +54,47 @@ public class Lid {
                 teamnamen.add("Trainer is nog niet aan team toegewezen");
                 return teamnamen;
             }
-
         } else {
             teamnamen.add("Lid is niet aangemeld als trainer");
             return teamnamen;
         }
-
     }
 
+    public List<String> voorCoachZoekTeams(Lid lid) {
+        List<String> teamnamen = new ArrayList<>();
+        if (lid.isCoach() == true) {
+            List<Teamkoppel> koppels = lid.getTeamkoppels();
+            int counter = 0;
+            for (int i = 0; i < koppels.size(); i++) {
+                if (koppels.get(i).getRole().equals("Coach")) {
+                    teamnamen.add(koppels.get(i).getTeam().getTeamnaam());
+                    counter++;
+                }
+            }
+            if (counter >0){
+                return teamnamen;
+            } else {
+                teamnamen.add("Coach is nog niet aan team toegewezen");
+                return teamnamen;
+            }
+        } else {
+            teamnamen.add("Lid is niet aangemeld als coach");
+            return teamnamen;
+        }
+    }
+
+
+
+    public String krijgTeamNaam(Lid lid){
+        List<Teamkoppel> lidkoppel = lid.getTeamkoppels();
+        String teamnaam = "Speler heeft nog geen team.";
+        for (int i=0; i<lidkoppel.size();i++){
+            if (lidkoppel.get(i).getRole().equals("Speler")){
+                teamnaam = lidkoppel.get(i).getTeam().getTeamnaam();
+            }
+        }
+        return teamnaam;
+    }
 
     public String getTrainniveau() {
         return trainniveau;
@@ -181,5 +214,9 @@ public class Lid {
 
     public void calculateAge() {
         this.age = Period.between(geboortedatum, LocalDate.now()).getYears();
+    }
+
+    public List<Training> getTrainingen() {
+        return trainingen;
     }
 }
