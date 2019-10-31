@@ -28,6 +28,11 @@ public class LidEndpoint {
         System.out.println(id + " is verwijderd");
     }
 
+    @GetMapping(value = "ledenlijst/vindlid/{id}")
+    public LidDTO vindLid(@PathVariable Long id){
+        return lidService.vindLid(id);
+    }
+
     @PatchMapping(value = "/ledenlijst")
     public void updateLid(@RequestBody Lid lid) {
         lidService.updateLid(lid);
