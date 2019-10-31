@@ -30,8 +30,9 @@ public class LidService {
         lidRepository.deleteById(id);
     }
 
-    public void vindLid(Long id){
-        lidRepository.findById(id);
+    public LidDTO vindLid(Long id){
+        LidDTO lid = new LidDTO(lidRepository.findById(id).get());
+        return lid;
     }
 
     public Iterable<LidDTO> geefMeLeden() {

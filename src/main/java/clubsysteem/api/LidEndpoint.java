@@ -29,8 +29,8 @@ public class LidEndpoint {
     }
 
     @GetMapping(value = "ledenlijst/vindlid/{id}")
-    public void vindLid(@PathVariable Long id){
-        lidService.vindLid(id);
+    public LidDTO vindLid(@PathVariable Long id){
+        return lidService.vindLid(id);
     }
 
     @PatchMapping(value = "/ledenlijst")
