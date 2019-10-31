@@ -92,30 +92,8 @@ public class TeamService {
         }
     }
 
-
-    public void addTrainer(Long lidId, Long teamId) {
-        Optional<Team> team = teamRepository.findById(teamId);
-        Optional<Lid> lid = lidRepository.findById(lidId);
-        Team team2 = team.get();
-        Lid lid_aan = lid.get();
-        Long trainer_id = lid_aan.getId();
-        //team2.(lid_aan);
-        teamRepository.save(team2);
+    public TeamDTO vindLid(Long teamId) {
+        TeamDTO team = new TeamDTO(teamRepository.findById(teamId).get());
+        return team;
     }
-
-    public void addCoach(Long lidId, Long teamId) {
-        Optional<Team> team = teamRepository.findById(teamId);
-        Optional<Lid> lid = lidRepository.findById(lidId);
-        Team team2 = team.get();
-        Lid lid_aan = lid.get();
-        Long coach_id = lid_aan.getId();
-        //team2.setCoach((Coach) lid_aan);
-        teamRepository.save(team2);
-    }
-
-//    public List<TeamDTO> findByTrainer(Long trainerId){
-//        List<TeamDTO> selectie = new ArrayList<>();
-//        teamRepository.findByTrainerId(trainerId).forEach(lid -> {selectie.add(new TeamDTO(lid));});
-//    return selectie;
-//    }
 }

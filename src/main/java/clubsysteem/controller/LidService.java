@@ -51,6 +51,21 @@ public class LidService {
         return selectie;
     }
 
+    public Iterable<TrainerDTO> findByTrainer(boolean trainer) {
+        List<TrainerDTO> selectie = new ArrayList<>();
+        lidRepository.findByTrainer(trainer).forEach(lid -> {
+            selectie.add(new TrainerDTO(lid));
+        });
+        return selectie;
+    }
+
+    public Iterable<CoachDTO> findByCoach(boolean coach) {
+        List<CoachDTO> selectie = new ArrayList<>();
+        lidRepository.findByCoach(coach).forEach(lid -> {
+            selectie.add(new CoachDTO(lid));
+        });
+        return selectie;
+    }
 
     public void updateLid(Lid updates) {
         lidRepository.save(updates);
@@ -114,23 +129,4 @@ public class LidService {
         });
         return nivGesPos;
     }
-
-    public Iterable<TrainerDTO> findByTrainer(boolean trainer) {
-        List<TrainerDTO> selectie = new ArrayList<>();
-        lidRepository.findByTrainer(trainer).forEach(lid -> {
-            selectie.add(new TrainerDTO(lid));
-        });
-        return selectie;
-    }
-
-    public Iterable<CoachDTO> findByCoach(boolean coach) {
-        List<CoachDTO> selectie = new ArrayList<>();
-        lidRepository.findByCoach(coach).forEach(lid -> {
-            selectie.add(new CoachDTO(lid));
-        });
-        return selectie;
-
-    }
-
-
 }
