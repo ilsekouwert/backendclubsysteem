@@ -1,6 +1,6 @@
 package clubsysteem;
 
-import clubsysteem.domein.Aanmelding;
+import clubsysteem.domein.Lid;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
@@ -13,7 +13,7 @@ public class voorbeeldTest {
         int a =3;
         int b=3;
         Assert.isTrue(a==b);
-        Aanmelding aan = new Aanmelding();
+        Lid aan = new Lid();
         aan.setAchternaam("hallo");
         Assert.isTrue(aan.getAchternaam().equals("hallo"));
 

@@ -1,7 +1,6 @@
 package clubsysteem.domein;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -19,21 +18,12 @@ public class Team {
     private boolean wedstrijd;
     private int speleraantal;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Aanmelding> aanmelding;
+    @OneToMany (mappedBy = "team")
+    private Set<Teamkoppel> koppels;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Training> training;
-
-    @OneToOne
-    @MapsId
-    private Trainer trainer;
-
-    @OneToOne
-    @MapsId
-    private Coach coach;
 
     public Set<Training> getTraining() {
         return training;
@@ -43,13 +33,13 @@ public class Team {
         this.training = training;
     }
 
-    public Set<Aanmelding> getAanmelding() {
-        return aanmelding;
-    }
-
-    public void setAanmelding(Set<Aanmelding> aanmelding) {
-        this.aanmelding = aanmelding;
-    }
+//    public Set<Lid> getLid() {
+//        return lid;
+//    }
+//
+//    public void setLid(Set<Lid> lid) {
+//        this.lid = lid;
+//    }
 
     public long getId() {
         return id;
@@ -101,21 +91,5 @@ public class Team {
 
     public void updateSpeleraantal(int spelerinvoer) {
         this.speleraantal = this.speleraantal + spelerinvoer;
-    }
-
-    public Trainer getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(Trainer trainer) {
-        this.trainer = trainer;
-    }
-
-    public Coach getCoach() {
-        return coach;
-    }
-
-    public void setCoach(Coach coach) {
-        this.coach = coach;
     }
 }

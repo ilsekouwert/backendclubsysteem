@@ -1,12 +1,6 @@
 package clubsysteem.DTO;
 
-import clubsysteem.controller.TeamRepository;
-import clubsysteem.controller.TeamService;
-import clubsysteem.domein.Aanmelding;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
+import clubsysteem.domein.Lid;
 
 public class TrainerDTO {
 //    @Autowired
@@ -20,12 +14,12 @@ public class TrainerDTO {
     //private List<String> trainingTeamNaam;
 
     public TrainerDTO(){};
-    public TrainerDTO(Aanmelding aanmelding){
-        this.id = aanmelding.getId();
-        this.voornaam = aanmelding.getVoornaam();
-        this.achternaam = aanmelding.getAchternaam();
-        this.geslacht = aanmelding.getGeslacht();
-        this.niveau = aanmelding.getNiveau();
+    public TrainerDTO(Lid lid){
+        this.id = lid.getId();
+        this.voornaam = lid.getVoornaam();
+        this.achternaam = lid.getAchternaam();
+        this.geslacht = lid.getGeslacht();
+        this.niveau = lid.getNiveau();
        // this.trainingTeamNaam = zoekTeamNaam(aanmelding);
     }
 

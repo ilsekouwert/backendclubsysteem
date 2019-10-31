@@ -1,13 +1,10 @@
 package clubsysteem.controller;
 
-import clubsysteem.domein.Aanmelding;
-import clubsysteem.domein.Coach;
+import clubsysteem.domein.Lid;
 import clubsysteem.domein.Team;
 import clubsysteem.DTO.TeamDTO;
-import clubsysteem.domein.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +14,7 @@ public class TeamService {
     @Autowired
     TeamRepository teamRepository;
     @Autowired
-    AanmeldingRepository aanmeldingRepository;
+    LidRepository lidRepository;
 
     public void saveTeam(Team team){
         teamRepository.save(team);
@@ -41,27 +38,27 @@ public class TeamService {
 
     public void addTrainer(Long lidId, Long teamId) {
         Optional<Team> team = teamRepository.findById(teamId);
-        Optional<Aanmelding> lid = aanmeldingRepository.findById(lidId);
+        Optional<Lid> lid = lidRepository.findById(lidId);
         Team team2 = team.get();
-        Aanmelding lid_aan = lid.get();
+        Lid lid_aan = lid.get();
         Long trainer_id = lid_aan.getId();
-        team2.setTrainer((Trainer) lid_aan);
+        //team2.(lid_aan);
         teamRepository.save(team2);
     }
 
     public void addCoach(Long lidId, Long teamId) {
         Optional<Team> team = teamRepository.findById(teamId);
-        Optional<Aanmelding> lid = aanmeldingRepository.findById(lidId);
+        Optional<Lid> lid = lidRepository.findById(lidId);
         Team team2 = team.get();
-        Aanmelding lid_aan = lid.get();
+        Lid lid_aan = lid.get();
         Long coach_id = lid_aan.getId();
-        team2.setCoach((Coach) lid_aan);
+        //team2.setCoach((Coach) lid_aan);
         teamRepository.save(team2);
     }
 
-    public List<TeamDTO> findByTrainer(Long trainerId){
-        List<TeamDTO> selectie = new ArrayList<>();
-        teamRepository.findByTrainerId(trainerId).forEach(lid -> {selectie.add(new TeamDTO(lid));});
-    return selectie;
-    }
+//    public List<TeamDTO> findByTrainer(Long trainerId){
+//        List<TeamDTO> selectie = new ArrayList<>();
+//        teamRepository.findByTrainerId(trainerId).forEach(lid -> {selectie.add(new TeamDTO(lid));});
+//    return selectie;
+//    }
 }

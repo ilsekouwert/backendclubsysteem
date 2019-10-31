@@ -1,17 +1,14 @@
 package clubsysteem.DTO;
 
-import clubsysteem.controller.AanmeldingRepository;
-import clubsysteem.controller.AanmeldingService;
-import clubsysteem.domein.Aanmelding;
+import clubsysteem.controller.LidRepository;
+import clubsysteem.domein.Lid;
 import clubsysteem.domein.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.Optional;
-
 public class TeamDTO {
     @Autowired
-    AanmeldingRepository aanmeldingRepository;
+    LidRepository lidRepository;
 
     long id;
     private String teamnaam;
@@ -39,7 +36,7 @@ public class TeamDTO {
 
     public Long trainerNaamKrijgen(Team team){
         //Long trainerId = team.getTrainerId();
-        Aanmelding aan = aanmeldingRepository.findById(trainerId)
+        Lid aan = lidRepository.findById(trainerId)
                 .orElseThrow(()-> new NotImplementedException());
         System.out.println(trainerId);
         return trainerId;
