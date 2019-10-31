@@ -1,5 +1,6 @@
 package clubsysteem.controller;
 
+import clubsysteem.DTO.SpelerDTO;
 import clubsysteem.domein.Lid;
 import clubsysteem.domein.Team;
 import clubsysteem.DTO.TeamDTO;
@@ -27,7 +28,7 @@ public class TeamService {
 
     public Iterable<TeamDTO> geefMeTeams(){
         List<TeamDTO> teamDTO = new ArrayList<>();
-        teamRepository.findAll().forEach(lid -> {teamDTO.add(new TeamDTO(lid));});
+        teamRepository.findAll().forEach(team -> {teamDTO.add(new TeamDTO(team));});
         return teamDTO;
     }
 
@@ -35,7 +36,15 @@ public class TeamService {
         teamRepository.save(teamupdates);
     }
 
-
+    public List<SpelerDTO> vindTeamLeden(Long team_id) {
+        Optional<Team> team = teamRepository.findById(team_id);
+        List<Lid> leden = team.get().krijgAlleLedenInTeam(team.get());
+        List<SpelerDTO> spelers = new ArrayList<>();
+        leden.forEach(lid -> {
+            spelers.add(new SpelerDTO(lid));
+        });
+        return spelers;
+    }
     public void addTrainer(Long lidId, Long teamId) {
         Optional<Team> team = teamRepository.findById(teamId);
         Optional<Lid> lid = lidRepository.findById(lidId);

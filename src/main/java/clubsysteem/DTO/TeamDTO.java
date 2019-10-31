@@ -1,54 +1,47 @@
 package clubsysteem.DTO;
 
-import clubsysteem.controller.LidRepository;
-import clubsysteem.domein.Lid;
+import clubsysteem.controller.TeamKoppelService;
 import clubsysteem.domein.Team;
 import org.springframework.beans.factory.annotation.Autowired;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TeamDTO {
     @Autowired
-    LidRepository lidRepository;
+    TeamKoppelService teamKoppelService;
 
     long id;
     private String teamnaam;
     private String niveau;
-    private Long trainerId;
     private String teamType;
-    private Long coachId;
     private boolean wedstrijd;
     private int speleraantal;
-    private Long trainerNaam;
+    private String trainerNaam;
+    private String coachNaam;
 
     public TeamDTO(){}
     public TeamDTO(Team team) {
         this.teamnaam = team.getTeamnaam();
         this.id = team.getId();
         this.niveau = team.getNiveau();
-        this.trainerNaam = trainerNaamKrijgen(team);
-        //this.trainerId = team.getTrainer();
+        this.trainerNaam = team.krijgTrainerOfCoach(team, "Trainer");
         this.teamType = team.getTeamType();
-        //this.coachId = team.getCoach();
+        //this.coachNaam = krijgCoachnaam(team.getId());
         this.speleraantal = team.getSpeleraantal();
     }
 
 
 
-    public Long trainerNaamKrijgen(Team team){
-        //Long trainerId = team.getTrainerId();
-        Lid aan = lidRepository.findById(trainerId)
-                .orElseThrow(()-> new NotImplementedException());
-        System.out.println(trainerId);
-        return trainerId;
-    }
 
-    public Long getTrainerNaam() {
-        return trainerNaam;
-    }
+//    public String krijgCoachnaam(long teamId){
+//        Lid coach = teamKoppelService.krijgDeTrainerOfCoach(teamId, "Coach");
+//        String coachNaam;
+//        if (coach == null){
+//            coachNaam = "Geen coach aangewezen";
+//        } else {
+//            coachNaam = coach.getVoornaam() + " "+ coach.getAchternaam();
+//        }
+//        return coachNaam;
+//    }
 
-    public void setTrainerNaam(Long trainerNaam) {
-        this.trainerNaam = trainerNaam;
-    }
 
     public long getId() {
         return id;
@@ -82,14 +75,6 @@ public class TeamDTO {
         this.teamType = teamType;
     }
 
-    public Long getCoachId() {
-        return coachId;
-    }
-
-    public void setCoachId(Long coachId) {
-        this.coachId = coachId;
-    }
-
     public boolean isWedstrijd() {
         return wedstrijd;
     }
@@ -102,4 +87,11 @@ public class TeamDTO {
         return speleraantal;
     }
 
+    public String getTrainerNaam() {
+        return trainerNaam;
+    }
+
+    public String getCoachNaam() {
+        return coachNaam;
+    }
 }
