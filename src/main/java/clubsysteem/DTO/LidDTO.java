@@ -27,12 +27,6 @@ public class LidDTO {
             this.isSpeler = lid.isSpeler();
     }
 
-//    public long checkTeamId(Lid aan){
-//        if(aan.getTeam()!=null)
-//            return aan.getTeam().getId();
-//        else
-//            return 0;}
-
     public long getId() {
         return id;
     }

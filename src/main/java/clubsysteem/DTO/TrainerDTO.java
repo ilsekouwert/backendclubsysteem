@@ -2,16 +2,15 @@ package clubsysteem.DTO;
 
 import clubsysteem.domein.Lid;
 
-public class TrainerDTO {
-//    @Autowired
-//    TeamService teamService;
+import java.util.List;
 
+public class TrainerDTO {
     private long id;
     private String voornaam;
     private String achternaam;
     private String geslacht;
     private String niveau;
-    //private List<String> trainingTeamNaam;
+    private List<String> trainingTeamNamen;
 
     public TrainerDTO(){};
     public TrainerDTO(Lid lid){
@@ -20,21 +19,12 @@ public class TrainerDTO {
         this.achternaam = lid.getAchternaam();
         this.geslacht = lid.getGeslacht();
         this.niveau = lid.getNiveau();
-       // this.trainingTeamNaam = zoekTeamNaam(aanmelding);
+        this.trainingTeamNamen = lid.voorTrainerZoekTeams(lid);
     }
 
-//    private List<String> zoekTeamNaam(Aanmelding aan) {
-//        Long trainerselect = aan.getId();
-//        System.out.println(aan.getId());
-//
-//        List<TeamDTO> alleTeams = teamService.findByTrainer(trainerselect);
-//        System.out.println("in zoekteamnaam" + alleTeams);
-//        List<String> teamNamen = new ArrayList<>();
-//        for (int i = 0; i < alleTeams.size(); i++) {
-//            teamNamen.add(alleTeams.get(i).getTeamnaam());
-//        }
-//        return teamNamen;
-//    }
+    public List<String> getTrainingTeamNamen() {
+        return trainingTeamNamen;
+    }
 
     public long getId() {
         return id;
@@ -75,13 +65,5 @@ public class TrainerDTO {
     public void setNiveau(String niveau) {
         this.niveau = niveau;
     }
-
-//    public List<String> getTrainingTeamNaam() {
-//        return trainingTeamNaam;
-//    }
-//
-//    public void setTrainingTeamNaam(List<String> trainingTeamNaam) {
-//        this.trainingTeamNaam = trainingTeamNaam;
-//    }
 
 }

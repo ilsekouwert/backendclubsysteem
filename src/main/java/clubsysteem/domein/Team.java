@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -15,9 +16,7 @@ public class Team {
     long id;
     private String teamnaam;
     private String niveau;
-    //private Long trainerId;
     private String teamType;
-    //private Long coachId;
     private boolean wedstrijd;
     private int speleraantal;
 
@@ -56,7 +55,6 @@ public class Team {
         }
         return leden;
     }
-
 
     public void setTraining(Set<Training> training) {
         this.training = training;

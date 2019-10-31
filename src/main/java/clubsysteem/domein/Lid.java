@@ -2,6 +2,8 @@ package clubsysteem.domein;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,11 +27,41 @@ public class Lid {
     private String trainniveau;
     private LocalDate geboortedatum;
 
-    @OneToMany (mappedBy = "lid")
-    private Set<Teamkoppel> teamkoppels;
+    @OneToMany(mappedBy = "lid")
+    private List<Teamkoppel> teamkoppels;
 
-    @ManyToMany (mappedBy = "lid")
+    @ManyToMany(mappedBy = "lid")
     private Set<Training> trainingen;
+
+    public List<Teamkoppel> getTeamkoppels() {
+        return teamkoppels;
+    }
+
+    public List<String> voorTrainerZoekTeams(Lid lid) {
+        List<String> teamnamen = new ArrayList<>();
+        if (lid.isTrainer() == true) {
+            List<Teamkoppel> koppels = lid.getTeamkoppels();
+            int counter = 0;
+            for (int i = 0; i < koppels.size(); i++) {
+                if (koppels.get(i).getRole().equals("Trainer")) {
+                    teamnamen.add(koppels.get(i).getTeam().getTeamnaam());
+                    counter++;
+                }
+            }
+            if (counter >0){
+                return teamnamen;
+            } else {
+                teamnamen.add("Trainer is nog niet aan team toegewezen");
+                return teamnamen;
+            }
+
+        } else {
+            teamnamen.add("Lid is niet aangemeld als trainer");
+            return teamnamen;
+        }
+
+    }
+
 
     public String getTrainniveau() {
         return trainniveau;

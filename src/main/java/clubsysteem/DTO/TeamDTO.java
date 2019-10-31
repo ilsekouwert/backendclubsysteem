@@ -24,24 +24,9 @@ public class TeamDTO {
         this.niveau = team.getNiveau();
         this.trainerNaam = team.krijgTrainerOfCoach(team, "Trainer");
         this.teamType = team.getTeamType();
-        //this.coachNaam = krijgCoachnaam(team.getId());
+        this.coachNaam = team.krijgTrainerOfCoach(team, "Coach");
         this.speleraantal = team.getSpeleraantal();
     }
-
-
-
-
-//    public String krijgCoachnaam(long teamId){
-//        Lid coach = teamKoppelService.krijgDeTrainerOfCoach(teamId, "Coach");
-//        String coachNaam;
-//        if (coach == null){
-//            coachNaam = "Geen coach aangewezen";
-//        } else {
-//            coachNaam = coach.getVoornaam() + " "+ coach.getAchternaam();
-//        }
-//        return coachNaam;
-//    }
-
 
     public long getId() {
         return id;
