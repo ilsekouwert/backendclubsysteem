@@ -17,15 +17,6 @@ public class TeamKoppelService {
     @Autowired
     TeamRepository teamRepository;
 
-    public List<Lid> krijgAlleLedenInTeam(Long teamId){
-        List<Teamkoppel> koppelsvoorteam = teamKoppelRepository.findByTeamId(teamId);
-        List<Lid> leden = new ArrayList<>();
-        for (int i = 0; i < koppelsvoorteam.size(); i++) {
-            leden.add(koppelsvoorteam.get(i).getLid());
-        }
-        return leden;
-    }
-
     public List<Team> krijgAlleTeamsVoorLid(Long lidId){
         List<Teamkoppel> koppelsvoorlid = teamKoppelRepository.findByLidId(lidId);
         List<Team> teams = new ArrayList<>();
@@ -34,4 +25,5 @@ public class TeamKoppelService {
         }
         return teams;
     }
+
 }

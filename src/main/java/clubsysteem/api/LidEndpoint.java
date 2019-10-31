@@ -54,11 +54,6 @@ public class LidEndpoint {
         return lidService.findByCoach(coach);
     }
 
-    @GetMapping(value = "/spelerslijst/zoekteam/{teamId}")
-    public List<SpelerDTO> zoekTeam(@PathVariable Long teamId) {
-        return lidService.vindTeamLeden(teamId);
-    }
-
     @GetMapping(value = "/spelerslijst/zoekgeslacht/{geslacht}")
     public List<LidDTO> geefGeslacht(@PathVariable String geslacht) {
         return lidService.findByGeslacht(geslacht);
