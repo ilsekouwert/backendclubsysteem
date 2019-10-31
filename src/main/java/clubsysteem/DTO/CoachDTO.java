@@ -1,6 +1,6 @@
 package clubsysteem.DTO;
 
-import clubsysteem.domein.Aanmelding;
+import clubsysteem.domein.Lid;
 
 public class CoachDTO {
     private long id;
@@ -9,11 +9,11 @@ public class CoachDTO {
     private String niveau;
 
     public CoachDTO(){}
-    public CoachDTO(Aanmelding aanmelding) {
-      this.id =  aanmelding.getId();
-      this.voornaam = aanmelding.getVoornaam();
-      this.achternaam = aanmelding.getAchternaam();
-      this.niveau = aanmelding.getNiveau();
+    public CoachDTO(Lid lid) {
+      this.id =  lid.getId();
+      this.voornaam = lid.getVoornaam();
+      this.achternaam = lid.getAchternaam();
+      this.niveau = lid.getNiveau();
     }
 
     public long getId() {

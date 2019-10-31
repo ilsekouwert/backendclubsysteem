@@ -16,12 +16,10 @@ public class Training {
     private boolean trainerAanwezig;
 
     @ManyToOne
-    @JoinColumn(name = "teamId", nullable = true)
     private Team team;
 
     @ManyToMany
-    @JoinColumn(name = "aanmeldingId", nullable = true)
-    private Set<Aanmelding> aanmelding;
+    private Set<Lid> lid;
 
     public String getPlaats() {
         return plaats;
@@ -39,12 +37,12 @@ public class Training {
         this.trainerAanwezig = trainerAanwezig;
     }
 
-    public Set<Aanmelding> getAanmelding() {
-        return aanmelding;
+    public Set<Lid> getLid() {
+        return lid;
     }
 
-    public void setAanmelding(Set<Aanmelding> aanmelding) {
-        this.aanmelding = aanmelding;
+    public void setLid(Set<Lid> lid) {
+        this.lid = lid;
     }
 
     public long getId() {

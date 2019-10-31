@@ -1,7 +1,6 @@
 package clubsysteem.domein;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,15 +12,14 @@ public class Team {
     long id;
     private String teamnaam;
     private String niveau;
-    private Long trainerId;
+    //private Long trainerId;
     private String teamType;
-    private Long coachId;
+    //private Long coachId;
     private boolean wedstrijd;
     private int speleraantal;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Aanmelding> aanmelding;
+    @OneToMany (mappedBy = "team")
+    private Set<Teamkoppel> koppels;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -35,13 +33,13 @@ public class Team {
         this.training = training;
     }
 
-    public Set<Aanmelding> getAanmelding() {
-        return aanmelding;
-    }
-
-    public void setAanmelding(Set<Aanmelding> aanmelding) {
-        this.aanmelding = aanmelding;
-    }
+//    public Set<Lid> getLid() {
+//        return lid;
+//    }
+//
+//    public void setLid(Set<Lid> lid) {
+//        this.lid = lid;
+//    }
 
     public long getId() {
         return id;
@@ -67,28 +65,12 @@ public class Team {
         this.niveau = niveau;
     }
 
-    public Long getTrainerId() {
-        return trainerId;
-    }
-
-    public void setTrainerId(Long trainerId) {
-        this.trainerId = trainerId;
-    }
-
     public String getTeamType() {
         return teamType;
     }
 
     public void setTeamType(String teamType) {
         this.teamType = teamType;
-    }
-
-    public Long getCoach() {
-        return coachId;
-    }
-
-    public void setCoach(Long coachId) {
-        this.coachId = coachId;
     }
 
     public boolean isWedstrijd() {
@@ -107,7 +89,7 @@ public class Team {
         this.speleraantal = speleraantal;
     }*/
 
-    public void updateSpeleraantal(int spelerinvoer){
+    public void updateSpeleraantal(int spelerinvoer) {
         this.speleraantal = this.speleraantal + spelerinvoer;
-        }
+    }
 }

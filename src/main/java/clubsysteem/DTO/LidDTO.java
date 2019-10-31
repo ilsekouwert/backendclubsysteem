@@ -1,8 +1,8 @@
 package clubsysteem.DTO;
 
-import clubsysteem.domein.Aanmelding;
+import clubsysteem.domein.Lid;
 
-public class AanmeldingDTO {
+public class LidDTO {
     private long id;
     private String voornaam;
     private String achternaam;
@@ -15,24 +15,23 @@ public class AanmeldingDTO {
     private boolean isTrainer;
     private boolean isCoach;
 
-    public AanmeldingDTO(){}
-    public AanmeldingDTO(Aanmelding aanmelding){
-            this.id = aanmelding.getId();
-            this.voornaam = aanmelding.getVoornaam();
-            this.achternaam = aanmelding.getAchternaam();
-            this.age = aanmelding.getAge();
-            this.geslacht = aanmelding.getGeslacht();
-            this.posities = aanmelding.getPosities();
-            this.niveau = aanmelding.getNiveau();
-            this.teamId = checkTeamId(aanmelding);
-            this.isSpeler = aanmelding.isSpeler();
+    public LidDTO(){}
+    public LidDTO(Lid lid){
+            this.id = lid.getId();
+            this.voornaam = lid.getVoornaam();
+            this.achternaam = lid.getAchternaam();
+            this.age = lid.getAge();
+            this.geslacht = lid.getGeslacht();
+            this.posities = lid.getPosities();
+            this.niveau = lid.getNiveau();
+            this.isSpeler = lid.isSpeler();
     }
 
-    public long checkTeamId(Aanmelding aan){
-        if(aan.getTeam()!=null)
-            return aan.getTeam().getId();
-        else
-            return 0;}
+//    public long checkTeamId(Lid aan){
+//        if(aan.getTeam()!=null)
+//            return aan.getTeam().getId();
+//        else
+//            return 0;}
 
     public long getId() {
         return id;
