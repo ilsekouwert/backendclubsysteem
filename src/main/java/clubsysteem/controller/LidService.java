@@ -110,44 +110,6 @@ public class LidService {
         return nivGesPos;
     }
 
-
-
-    public void selectLid(Long lidId, Long teamId) {
-        Optional<Lid> lid = lidRepository.findById(lidId);
-        Optional<Team> team = teamRepository.findById(teamId);
-        List<Teamkoppel> teamkoppel = teamKoppelRepository.findByTeamId(teamId);
-        List<Teamkoppel> lidkoppels = teamKoppelRepository.findByLidId(lidId);
-
-        if (lid.isPresent() & team.isPresent()) {
-            Lid geselecteerdLid = lid.get();
-            Team geselecteerdTeam = team.get();
-            if (lidkoppels.size() == 0) {
-                Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, "Speler");
-                teamKoppelRepository.save(nieuweKoppel);
-            } else {
-                for (int i = 0; i < lidkoppels.size(); i++) {
-                    if (lidkoppels.get(i).getRole().equals("Speler")) {
-                        System.out.println("Deze persoon is al een speler in een ander team");
-                        break;
-                    } else {
-                        Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, "Speler");
-                        teamKoppelRepository.save(nieuweKoppel);
-                    }
-                }
-
-                for (int j = 0; j < teamkoppel.size(); j++) {
-                    if (teamkoppel.get(j).getLid() == geselecteerdLid) {
-                        System.out.println("Lid zit al in het team");
-                        break;
-                    }
-                }
-            }
-        } else {
-            System.out.println("lid of team bestaat niet");
-        }
-    }
-
-
     public Iterable<TrainerDTO> findByTrainer(boolean trainer) {
         List<TrainerDTO> selectie = new ArrayList<>();
         lidRepository.findByTrainer(trainer).forEach(lid -> {

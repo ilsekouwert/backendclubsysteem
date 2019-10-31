@@ -53,6 +53,11 @@ public class TeamEndpoint {
         teamService.addCoach(lidId, teamId);
     }
 
+    @GetMapping(value = "/lidtoevoegenteam/{lidId}/{teamId}/{role}")
+    public void lidNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId, @PathVariable String role) {
+        teamService.LidToevoegenTeam(lidId, teamId, role);
+    }
+
 //    @GetMapping(value = "/teamlijst/trainervinden/{lidId}")
 //    public Iterable<TeamDTO> trainerVinden(@PathVariable Long lidId){
 //        System.out.println(lidId);

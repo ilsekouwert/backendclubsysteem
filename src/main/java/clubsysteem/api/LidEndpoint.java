@@ -90,11 +90,6 @@ public class LidEndpoint {
         return lidService.findByNiveauAndGeslachtAndPositiesContaining(niveau, geslacht, positie);
     }
 
-    @GetMapping(value = "/lidtoevoegenteam/{lidId}/{teamId}")
-    public void lidNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId) {
-        lidService.selectLid(lidId, teamId);
-    }
-
 }
 
 
