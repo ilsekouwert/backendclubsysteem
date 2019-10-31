@@ -45,9 +45,9 @@ public class TeamEndpoint {
         teamService.addCoach(lidId, teamId);
     }
 
-    @GetMapping(value = "/teamlijst/trainervinden/{lidId}")
-    public Iterable<TeamDTO> trainerVinden(@PathVariable Long lidId){
-        System.out.println(lidId);
-        return teamService.findByTrainer(lidId);
-    }
+//    @GetMapping(value = "/teamlijst/trainervinden/{lidId}")
+//    public Iterable<TeamDTO> trainerVinden(@PathVariable Long lidId){
+//        System.out.println(lidId);
+//        return teamService.findByTrainer(lidId);
+//    }
 }

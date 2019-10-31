@@ -5,8 +5,8 @@ import java.time.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "AANMELDING")
-public class Aanmelding {
+@Table(name = "LEDEN")
+public class Lid {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
@@ -25,9 +25,11 @@ public class Aanmelding {
     private String trainniveau;
     private LocalDate geboortedatum;
 
-    @ManyToOne
-    @JoinColumn(name = "teamId", nullable = true)
-    private Team team;
+    @OneToMany (mappedBy = "lid")
+    private Set<Teamkoppel> teamkoppels;
+
+    @ManyToMany (mappedBy = "lid")
+    private Set<Training> trainingen;
 
     public String getTrainniveau() {
         return trainniveau;
@@ -99,14 +101,6 @@ public class Aanmelding {
 
     public void setGeboortedatum(LocalDate geboortedatum) {
         this.geboortedatum = geboortedatum;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     public String getEmail() {
