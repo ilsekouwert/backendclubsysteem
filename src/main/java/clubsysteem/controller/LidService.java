@@ -30,6 +30,10 @@ public class LidService {
         lidRepository.deleteById(id);
     }
 
+    public void vindLid(Long id){
+        lidRepository.findById(id);
+    }
+
     public Iterable<LidDTO> geefMeLeden() {
         List<LidDTO> ledenDTO = new ArrayList<>();
         lidRepository.findAll().forEach(lid -> {
