@@ -6,7 +6,6 @@ import clubsysteem.domein.Team;
 import clubsysteem.DTO.TeamDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -33,6 +32,11 @@ public class TeamEndpoint {
         System.out.println(id + " is deleted");
     }
 
+    @GetMapping("/teamlijst/vindteam/{teamId}")
+    public TeamDTO vindTeam(@PathVariable Long teamId){
+        return teamService.vindLid(teamId);
+    }
+
     @PatchMapping(value = "/teamlijst")
     public void updateTeam(@RequestBody Team team){
         teamService.updateTeam(team);
@@ -43,24 +47,8 @@ public class TeamEndpoint {
         return teamService.vindTeamLeden(teamId);
     }
 
-    @GetMapping(value = "/teamlijst/trainertoevoegen/{lidId}/{teamId}")
-    public void trainerNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId) {
-        teamService.addTrainer(lidId, teamId);
-    }
-
-    @GetMapping(value = "/teamlijst/coachtoevoegen/{lidId}/{teamId}")
-    public void coachNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId) {
-        teamService.addCoach(lidId, teamId);
-    }
-
     @GetMapping(value = "/lidtoevoegenteam/{lidId}/{teamId}/{role}")
     public void lidNaarTeam(@PathVariable Long lidId, @PathVariable Long teamId, @PathVariable String role) {
         teamService.LidToevoegenTeam(lidId, teamId, role);
     }
-
-//    @GetMapping(value = "/teamlijst/trainervinden/{lidId}")
-//    public Iterable<TeamDTO> trainerVinden(@PathVariable Long lidId){
-//        System.out.println(lidId);
-//        return teamService.findByTrainer(lidId);
-//    }
 }
