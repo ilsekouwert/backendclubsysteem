@@ -20,8 +20,6 @@ public class LidService {
     TeamRepository teamRepository;
     @Autowired
     TeamKoppelRepository teamKoppelRepository;
-    @Autowired
-    TeamKoppelService teamKoppelService;
 
     public void saveLid(Lid aan) {
         aan.calculateAge();
@@ -112,14 +110,7 @@ public class LidService {
         return nivGesPos;
     }
 
-    public List<SpelerDTO> vindTeamLeden(Long team_id) {
-        List<Lid> leden = teamKoppelService.krijgAlleLedenInTeam(team_id);
-        List<SpelerDTO> spelers = new ArrayList<>();
-        leden.forEach(lid -> {
-            spelers.add(new SpelerDTO(lid));
-        });
-        return spelers;
-    }
+
 
     public void selectLid(Long lidId, Long teamId) {
         Optional<Lid> lid = lidRepository.findById(lidId);

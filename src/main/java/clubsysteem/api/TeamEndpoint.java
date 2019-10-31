@@ -1,10 +1,13 @@
 package clubsysteem.api;
 
+import clubsysteem.DTO.SpelerDTO;
 import clubsysteem.controller.TeamService;
 import clubsysteem.domein.Team;
 import clubsysteem.DTO.TeamDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -33,6 +36,11 @@ public class TeamEndpoint {
     @PatchMapping(value = "/teamlijst")
     public void updateTeam(@RequestBody Team team){
         teamService.updateTeam(team);
+    }
+
+    @GetMapping(value = "/spelerslijst/zoekteam/{teamId}")
+    public List<SpelerDTO> zoekTeam(@PathVariable Long teamId) {
+        return teamService.vindTeamLeden(teamId);
     }
 
     @GetMapping(value = "/teamlijst/trainertoevoegen/{lidId}/{teamId}")
