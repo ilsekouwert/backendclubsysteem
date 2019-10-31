@@ -49,30 +49,30 @@ public class TrainingService {
         }
     }
 
-    public void voegLidToeAanTraining(Long lidId, Long trainingId){
-        Training training = trainingRepository.findById(trainingId).get();
-        long teamIdTraining = training.getTeam().getId();
-
-        Lid lid = lidRepository.findById(lidId).get();
-
-        for (Teamkoppel test : lid.getTeamkoppels())
-            test.getTeam().getId();
-            if (test.getTeam().getId() == teamIdTraining){
-
-            }
-
-
-
-        List<Training> trainingen = lid.getTrainingen();
-        if(lidRepository.findById(lidId).isPresent() & trainingRepository.findById(trainingId).isPresent()){
-            if (trainingen.size() == 0){
-                training.voegLidToeAanTraining(lid);
-                trainingRepository.save(training);
-            } else if (){
-
-            }
-        }
-    }
+//    public void voegLidToeAanTraining(Long lidId, Long trainingId){
+//        Training training = trainingRepository.findById(trainingId).get();
+//        long teamIdTraining = training.getTeam().getId();
+//
+//        Lid lid = lidRepository.findById(lidId).get();
+//
+//        for (Teamkoppel test : lid.getTeamkoppels())
+//            test.getTeam().getId();
+//            if (test.getTeam().getId() == teamIdTraining){
+//
+//            }
+//
+//
+//
+//        List<Training> trainingen = lid.getTrainingen();
+//        if(lidRepository.findById(lidId).isPresent() & trainingRepository.findById(trainingId).isPresent()){
+//            if (trainingen.size() == 0){
+//                training.voegLidToeAanTraining(lid);
+//                trainingRepository.save(training);
+//            } else if (){
+//
+//            }
+//        }
+//    }
 
     public void updateTraining(Training updates) {
         trainingRepository.save(updates);
