@@ -28,7 +28,7 @@ public class TrainingEndpoint {
         System.out.println("Trainingen gemaakt");
     }
 
-    @PatchMapping("/teamupdaten")
+    @PatchMapping("/training/updaten")
     public void updateTraining(@RequestBody Training training){
         trainingService.updateTraining(training);
         System.out.println(training + " is geupdate");

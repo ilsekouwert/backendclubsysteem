@@ -54,6 +54,11 @@ public class LidEndpoint {
         return lidService.findByCoach(coach);
     }
 
+    @GetMapping(value = "/spelerslijst/zoekteam/{teamId}")
+    public List<SpelerDTO> zoekTeam(@PathVariable Long teamId) {
+        return lidService.vindTeamLeden(teamId);
+    }
+
     @GetMapping(value = "/spelerslijst/zoekgeslacht/{geslacht}")
     public List<LidDTO> geefGeslacht(@PathVariable String geslacht) {
         return lidService.findByGeslacht(geslacht);
@@ -62,11 +67,6 @@ public class LidEndpoint {
     @GetMapping(value = "/spelerslijst/zoekniveau/{niveau}")
     public List<LidDTO> geefNiveau(@PathVariable String niveau) {
         return lidService.findByNiveau(niveau);
-    }
-
-    @GetMapping(value = "/spelerslijst/zoekteam/{teamId}")
-    public List<SpelerDTO> zoekTeam(@PathVariable Long teamId) {
-        return lidService.vindTeamLeden(teamId);
     }
 
     @GetMapping(value = "/spelerslijst/zoekpositie/{posities}")
@@ -78,6 +78,16 @@ public class LidEndpoint {
     public List<LidDTO> geefNiveauGeslacht(@RequestParam(value = "niveau") String niveau, @RequestParam(value = "geslacht") String geslacht) {
         System.out.println("selectie is goed uitgevoerd");
         return lidService.findByNiveauAndGeslacht(niveau, geslacht);
+    }
+
+    @GetMapping(value = "/spelerslijst/zoekpositiegeslacht/{geslacht}/{positie}")
+    public List<LidDTO> zoekPosGes(@PathVariable String geslacht, @PathVariable String positie){
+        return lidService.findByGeslachtAndPositiesContaining(geslacht, positie);
+    }
+
+    @GetMapping(value = "/spelerslijst/zoekniveauposities/{niveau}/{posities}")
+    public List<LidDTO> zoekNivGes(@PathVariable String niveau, @PathVariable String posities){
+        return lidService.findByNiveauAndPositiesContaining(niveau, posities);
     }
 
     @GetMapping(value = "/spelerslijst/zoekcombo/{geslacht}/{niveau}/{positie}")

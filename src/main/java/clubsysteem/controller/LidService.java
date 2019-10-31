@@ -92,6 +92,18 @@ public class LidService {
         return nivGesl;
     }
 
+    public List<LidDTO> findByGeslachtAndPositiesContaining(String geslacht, String posities) {
+        List<LidDTO> gesPos = new ArrayList<>();
+        lidRepository.findByGeslachtAndPositiesContaining(geslacht,posities).forEach(lid -> {gesPos.add(new LidDTO(lid));});
+        return gesPos;
+    }
+
+    public List<LidDTO> findByNiveauAndPositiesContaining(String niveau, String posities){
+        List<LidDTO> nivPos = new ArrayList<>();
+        lidRepository.findByNiveauAndPositiesContaining(niveau, posities).forEach(lid -> {nivPos.add(new LidDTO(lid));});
+        return nivPos;
+    }
+
     public List<LidDTO> findByNiveauAndGeslachtAndPositiesContaining(String niveau, String geslacht, String posities) {
         List<LidDTO> nivGesPos = new ArrayList<>();
         lidRepository.findByNiveauAndGeslachtAndPositiesContaining(niveau, geslacht, posities).forEach(lid -> {
@@ -118,7 +130,7 @@ public class LidService {
         if (lid.isPresent() & team.isPresent()) {
             Lid geselecteerdLid = lid.get();
             Team geselecteerdTeam = team.get();
-            if (teamkoppel.size() == 0 | lidkoppels.size() == 0) {
+            if (lidkoppels.size() == 0) {
                 Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, "Speler");
                 teamKoppelRepository.save(nieuweKoppel);
             } else {
@@ -161,4 +173,6 @@ public class LidService {
         return selectie;
 
     }
+
+
 }

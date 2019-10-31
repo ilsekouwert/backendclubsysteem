@@ -9,7 +9,9 @@ import java.util.List;
 public interface LidRepository extends CrudRepository<Lid, Long> {
     List<Lid> findByNiveauAndGeslacht(String niveau, String geslacht);
     List<Lid> findByNiveau(String niveau);
+    List<Lid> findByNiveauAndPositiesContaining(String niveau, String posities);
     List<Lid> findByGeslacht(String geslacht);
+    List<Lid> findByGeslachtAndPositiesContaining(String geslacht, String posities);
     List<Lid> findByPositiesContaining(String posities);
     List<Lid> findByNiveauAndGeslachtAndPositiesContaining(String niveau, String geslacht, String posities);
     List<Lid> findBySpeler(boolean speler);
