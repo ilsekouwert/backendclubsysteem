@@ -26,6 +26,8 @@ public class LidDTO {
             this.niveau = lid.getNiveau();
             this.isSpeler = lid.isSpeler();
             this.teamNaam = lid.krijgTeamNaam(lid);
+            this.isTrainer = lid.isTrainer();
+            this.isCoach = lid.isCoach();
     }
 
     public long getId() {

@@ -15,6 +15,7 @@ public class Training {
     private LocalTime tijd;
     private String plaats;
     private boolean trainerAanwezig;
+    private int aantalSpelersAanwezig;
 
     @ManyToOne
     private Team team;
@@ -46,7 +47,7 @@ public class Training {
         this.lid = lid;
     }
 
-    public void voegLidToeAanTraining(Lid lid){
+    public void voegLidToe(Lid lid){
         this.lid.add(lid);
     }
 
@@ -81,4 +82,13 @@ public class Training {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    public int getAantalSpelersAanwezig() {
+        return aantalSpelersAanwezig;
+    }
+
+    public void updateSpelerAantal(int spelerinvoer) {
+        this.aantalSpelersAanwezig = this.aantalSpelersAanwezig + spelerinvoer;
+    }
+
 }
