@@ -35,6 +35,19 @@ public class LidService {
         return lid;
     }
 
+    public void updateLid(Lid updates) {
+        Lid huidigLid = lidRepository.findById(updates.getId()).get();
+        huidigLid.setAchternaam(updates.getAchternaam());
+        huidigLid.setVoornaam(updates.getVoornaam());
+        huidigLid.setCoach(updates.isCoach());
+        huidigLid.setTrainer(updates.isTrainer());
+        huidigLid.setSpeler(updates.isSpeler());
+        huidigLid.setPosities(updates.getPosities());
+        huidigLid.setNiveau(updates.getNiveau());
+        huidigLid.setTrainniveau(updates.getTrainniveau());
+        lidRepository.save(huidigLid);
+    }
+
     public Iterable<LidDTO> geefMeLeden() {
         List<LidDTO> ledenDTO = new ArrayList<>();
         lidRepository.findAll().forEach(lid -> {
@@ -65,10 +78,6 @@ public class LidService {
             selectie.add(new CoachDTO(lid));
         });
         return selectie;
-    }
-
-    public void updateLid(Lid updates) {
-        lidRepository.save(updates);
     }
 
     public List<LidDTO> findByNiveau(String niveau) {
