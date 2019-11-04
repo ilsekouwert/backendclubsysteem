@@ -2,6 +2,7 @@ package clubsysteem.domein;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,7 @@ public class Training {
     private Team team;
 
     @ManyToMany
-    private Set<Lid> lid;
+    private List<Lid> lid;
 
     public String getPlaats() {
         return plaats;
@@ -37,12 +38,16 @@ public class Training {
         this.trainerAanwezig = trainerAanwezig;
     }
 
-    public Set<Lid> getLid() {
+    public List<Lid> getLid() {
         return lid;
     }
 
-    public void setLid(Set<Lid> lid) {
+    public void setLid(List<Lid> lid) {
         this.lid = lid;
+    }
+
+    public void voegLidToeAanTraining(Lid lid){
+        this.lid.add(lid);
     }
 
     public long getId() {

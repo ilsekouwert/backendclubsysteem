@@ -1,11 +1,14 @@
 package clubsysteem.controller;
 
+import clubsysteem.domein.Lid;
 import clubsysteem.domein.Team;
+import clubsysteem.domein.Teamkoppel;
 import clubsysteem.domein.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,6 +17,8 @@ public class TrainingService {
     TrainingRepository trainingRepository;
     @Autowired
     TeamRepository teamRepository;
+    @Autowired
+    LidRepository lidRepository;
 
     public void deleteTraining(Long id){
         trainingRepository.deleteById(id);
@@ -43,6 +48,31 @@ public class TrainingService {
             trainingRepository.save(volgendeTraining);
         }
     }
+
+//    public void voegLidToeAanTraining(Long lidId, Long trainingId){
+//        Training training = trainingRepository.findById(trainingId).get();
+//        long teamIdTraining = training.getTeam().getId();
+//
+//        Lid lid = lidRepository.findById(lidId).get();
+//
+//        for (Teamkoppel test : lid.getTeamkoppels())
+//            test.getTeam().getId();
+//            if (test.getTeam().getId() == teamIdTraining){
+//
+//            }
+//
+//
+//
+//        List<Training> trainingen = lid.getTrainingen();
+//        if(lidRepository.findById(lidId).isPresent() & trainingRepository.findById(trainingId).isPresent()){
+//            if (trainingen.size() == 0){
+//                training.voegLidToeAanTraining(lid);
+//                trainingRepository.save(training);
+//            } else if (){
+//
+//            }
+//        }
+//    }
 
     public void updateTraining(Training updates) {
         trainingRepository.save(updates);

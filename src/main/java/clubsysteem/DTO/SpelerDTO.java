@@ -10,7 +10,7 @@ public class SpelerDTO {
     private String geslacht;
     private String posities;
     private String niveau;
-    private long teamId;
+    private String teamNaam;
 
     public SpelerDTO(Lid lid){
         this.id = lid.getId();
@@ -20,14 +20,12 @@ public class SpelerDTO {
         this.geslacht = lid.getGeslacht();
         this.posities = lid.getPosities();
         this.niveau = lid.getNiveau();
-       // this.teamId = checkTeamId(lid);
+        this.teamNaam = lid.krijgTeamNaam(lid);
     }
 
-//    public long checkTeamId(Lid aan){
-//        if(aan.getTeam()!=null)
-//            return aan.getTeam().getId();
-//        else
-//            return 0;}
+    public String getTeamNaam() {
+        return teamNaam;
+    }
 
     public long getId() {
         return id;
@@ -85,11 +83,4 @@ public class SpelerDTO {
         this.niveau = niveau;
     }
 
-    public long getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(long teamId) {
-        this.teamId = teamId;
-    }
 }
