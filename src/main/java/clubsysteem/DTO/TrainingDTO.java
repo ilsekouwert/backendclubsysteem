@@ -12,7 +12,7 @@ public class TrainingDTO {
     private LocalDate dag;
     private LocalTime tijd;
     private String plaats;
-    private boolean trainerAanwezig;
+    private List<String> trainerAanwezig;
     private List<String> namenSpelersAanwezig;
     private int aantalSpelersAanwezig;
 
@@ -21,12 +21,16 @@ public class TrainingDTO {
         this.dag = training.getDag();
         this.tijd = training.getTijd();
         this.plaats = training.getPlaats();
-        this.trainerAanwezig = training.isTrainerAanwezig();
-        this.aantalSpelersAanwezig = training.getAantalSpelersAanwezig();
-        this.namenSpelersAanwezig = training.krijgSpelersAanwezig(training);
+        this.trainerAanwezig = training.krijgNamemTrainerAanwezig(training);
+        this.aantalSpelersAanwezig = training.krijgAantalSpelersAanwezig(training);
+        this.namenSpelersAanwezig = training.krijgNamenSpelersAanwezig(training);
         this.teamnaam = training.getTeam().getTeamnaam();
     }
 
+    public List<String> getTrainerAanwezig() {
+        return trainerAanwezig;
+    }
+    
     public LocalDate getDag() {
         return dag;
     }
@@ -51,12 +55,8 @@ public class TrainingDTO {
         this.plaats = plaats;
     }
 
-    public boolean isTrainerAanwezig() {
+    public List<String> isTrainerAanwezig() {
         return trainerAanwezig;
-    }
-
-    public void setTrainerAanwezig(boolean trainerAanwezig) {
-        this.trainerAanwezig = trainerAanwezig;
     }
 
     public List<String> getNamenSpelersAanwezig() {

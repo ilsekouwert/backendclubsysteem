@@ -45,7 +45,7 @@ public class TeamService {
 
     public List<SpelerDTO> vindTeamLeden(Long team_id) {
         Optional<Team> team = teamRepository.findById(team_id);
-        List<Lid> leden = team.get().krijgAlleLedenInTeam(team.get());
+        List<Lid> leden = team.get().krijgAlleSpelersInTeam(team.get());
         List<SpelerDTO> spelers = new ArrayList<>();
         leden.forEach(lid -> {
             spelers.add(new SpelerDTO(lid));
@@ -90,6 +90,7 @@ public class TeamService {
                                 return;
                             }
                         }
+                        System.out.println("Trainer toegevoegd");
                         System.out.println("Trainer toegevoegd");
                         Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
                         teamKoppelRepository.save(nieuweKoppel);
