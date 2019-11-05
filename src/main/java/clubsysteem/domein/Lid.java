@@ -48,7 +48,7 @@ public class Lid {
                     counter++;
                 }
             }
-            if (counter >0){
+            if (counter > 0) {
                 return teamnamen;
             } else {
                 teamnamen.add("Trainer is nog niet aan team toegewezen");
@@ -71,7 +71,7 @@ public class Lid {
                     counter++;
                 }
             }
-            if (counter >0){
+            if (counter > 0) {
                 return teamnamen;
             } else {
                 teamnamen.add("Coach is nog niet aan team toegewezen");
@@ -83,14 +83,15 @@ public class Lid {
         }
     }
 
-
-
-    public String krijgTeamNaam(Lid lid){
+    public String krijgTeamNaam(Lid lid) {
         List<Teamkoppel> lidkoppel = lid.getTeamkoppels();
+        System.out.println("Hier zijn we " + lidkoppel);
         String teamnaam = "Speler heeft nog geen team.";
-        for (int i=0; i<lidkoppel.size();i++){
-            if (lidkoppel.get(i).getRole().equals("Speler")){
-                teamnaam = lidkoppel.get(i).getTeam().getTeamnaam();
+        if (lidkoppel != null) {
+            for (int i = 0; i < lidkoppel.size(); i++) {
+                if (lidkoppel.get(i).getRole().equals("Speler")) {
+                    teamnaam = lidkoppel.get(i).getTeam().getTeamnaam();
+                }
             }
         }
         return teamnaam;
