@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -18,7 +17,6 @@ public class Team {
     private String niveau;
     private String teamType;
     private boolean wedstrijd;
-    private int speleraantal;
 
     @OneToMany(mappedBy = "team")
     private List<Teamkoppel> koppels;
@@ -46,13 +44,19 @@ public class Team {
         return geselecteerdeLid;
     }
 
-    public List<Lid> krijgAlleLedenInTeam(Team team) {
+    public List<Lid> krijgAlleSpelersInTeam(Team team) {
         List<Teamkoppel> teamleden = team.getKoppels();
-        List<Lid> leden = new ArrayList<>();
+        List<Lid> spelers = new ArrayList<>();
         for (int i = 0; i < teamleden.size(); i++) {
-            leden.add(teamleden.get(i).getLid());
+            if (teamleden.get(i).getRole().equals("Speler")){
+                spelers.add(teamleden.get(i).getLid());}
         }
-        return leden;
+        return spelers;
+    }
+
+    public int berekenSpelerAantal(Team team){
+        List<Lid> speler = krijgAlleSpelersInTeam(team);
+        return speler.size();
     }
 
     public void setTraining(Set<Training> training) {
@@ -99,15 +103,8 @@ public class Team {
         this.wedstrijd = wedstrijd;
     }
 
-    public int getSpeleraantal() {
-        return speleraantal;
-    }
-
     public List<Teamkoppel> getKoppels() {
         return koppels;
     }
 
-    public void updateSpeleraantal(int spelerinvoer) {
-        this.speleraantal = this.speleraantal + spelerinvoer;
-    }
 }

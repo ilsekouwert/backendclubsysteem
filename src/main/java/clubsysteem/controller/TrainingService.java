@@ -75,9 +75,7 @@ public class TrainingService {
                     if (teamIdLid == teamIdTraining & teamRoleLid.equals("Speler") | teamIdLid == teamIdTraining & teamRoleLid.equals("Trainer")) {
                         training.voegLidToe(lid);
                         if (teamRoleLid.equals("Trainer")) {
-                            training.setTrainerAanwezig(true);
                         } else if (teamRoleLid.equals("Speler")) {
-                            training.updateSpelerAantal(1);
                         }
                         trainingRepository.save(training);
                         System.out.println("Lid toegevoegd aan training");
