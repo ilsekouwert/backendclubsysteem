@@ -1,5 +1,6 @@
 package clubsysteem.api;
 
+import clubsysteem.DTO.TrainingDTO;
 import clubsysteem.controller.TrainingService;
 import clubsysteem.domein.Training;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ public class TrainingEndpoint {
     TrainingService trainingService;
 
     @GetMapping ("/trainingen")
-    public Iterable<Training> geefTraining() {
+    public Iterable<TrainingDTO> geefTraining() {
         return trainingService.geefMeTrainingen();
     }
 

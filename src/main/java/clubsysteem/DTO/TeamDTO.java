@@ -4,6 +4,8 @@ import clubsysteem.controller.TeamKoppelService;
 import clubsysteem.domein.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 public class TeamDTO {
     @Autowired
     TeamKoppelService teamKoppelService;
@@ -14,8 +16,8 @@ public class TeamDTO {
     private String teamType;
     private boolean wedstrijd;
     private int speleraantal;
-    private String trainerNaam;
-    private String coachNaam;
+    private List<String> trainerNaam;
+    private List<String> coachNaam;
 
     public TeamDTO(){}
     public TeamDTO(Team team) {
@@ -72,11 +74,11 @@ public class TeamDTO {
         return speleraantal;
     }
 
-    public String getTrainerNaam() {
+    public List<String> getTrainerNaam() {
         return trainerNaam;
     }
 
-    public String getCoachNaam() {
+    public List<String> getCoachNaam() {
         return coachNaam;
     }
 }

@@ -1,5 +1,6 @@
 package clubsysteem.controller;
 
+import clubsysteem.DTO.TrainingDTO;
 import clubsysteem.domein.Lid;
 import clubsysteem.domein.Team;
 import clubsysteem.domein.Teamkoppel;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -27,8 +29,10 @@ public class TrainingService {
         System.out.println("training verwijderd");
     }
 
-    public Iterable<Training> geefMeTrainingen() {
-        return trainingRepository.findAll();
+    public Iterable<TrainingDTO> geefMeTrainingen() {
+        List <TrainingDTO> trainingDTO = new ArrayList<>();
+        trainingRepository.findAll().forEach(training -> {trainingDTO.add(new TrainingDTO(training));});
+        return trainingDTO;
     }
 
     public void trainingenMaken(Training trainingTemplate, int hoeveel, Long teamId) {
@@ -78,6 +82,8 @@ public class TrainingService {
                         trainingRepository.save(training);
                         System.out.println("Lid toegevoegd aan training");
 
+                    } else{
+                        System.out.println("Persoon is geen speler of Trainer van dit team.");
                     }
                 }
             }
