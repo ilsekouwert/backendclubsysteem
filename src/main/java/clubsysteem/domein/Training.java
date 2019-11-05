@@ -2,6 +2,7 @@ package clubsysteem.domein;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -91,4 +92,19 @@ public class Training {
         this.aantalSpelersAanwezig = this.aantalSpelersAanwezig + spelerinvoer;
     }
 
+    public List<String> krijgSpelersAanwezig(Training training) {
+        List<Lid> spelerlijstKoppels = training.getLid();
+        List<String> spelerslijstNamen = new ArrayList<>();
+        if (spelerlijstKoppels.size() != 0){
+            for (int i=0; i<spelerlijstKoppels.size(); i++){
+                String naam = spelerlijstKoppels.get(i).getVoornaam() + " " + spelerlijstKoppels.get(i).getAchternaam();
+                System.out.println(naam);
+                spelerslijstNamen.add(naam);
+            }
+        } else {
+            spelerslijstNamen.add("Niemand in training");
+            System.out.println("Er zit nog niemand in de training.");
+        }
+        return spelerslijstNamen;
+    }
 }
