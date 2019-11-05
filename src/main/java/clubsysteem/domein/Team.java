@@ -31,23 +31,22 @@ public class Team {
         return training;
     }
 
-    public String krijgTrainerOfCoach(Team team, String role) {
+    public List<String> krijgTrainerOfCoach(Team team, String role) {
         List<Teamkoppel> teamleden = team.getKoppels();
-        String geselecteerdeLid = "";
+        List<String> geselecteerdeLid = new ArrayList<>();
         if (teamleden.size() != 0) {
             for (int i = 0; i < teamleden.size(); i++) {
-                if (teamleden.get(i).getRole().equals(role)){
-                    geselecteerdeLid = teamleden.get(i).getLid().getVoornaam() + " " + teamleden.get(i).getLid().getAchternaam();
-                    break;
-                } else {
-                    geselecteerdeLid = "Team heeft geen " + role;
+                if (teamleden.get(i).getRole().equals(role)) {
+                    geselecteerdeLid.add(teamleden.get(i).getLid().getVoornaam() + " " + teamleden.get(i).getLid().getAchternaam());
                 }
             }
+        } else {
+            geselecteerdeLid.add("Team heeft geen " + role);
         }
         return geselecteerdeLid;
     }
 
-    public List<Lid> krijgAlleLedenInTeam(Team team){
+    public List<Lid> krijgAlleLedenInTeam(Team team) {
         List<Teamkoppel> teamleden = team.getKoppels();
         List<Lid> leden = new ArrayList<>();
         for (int i = 0; i < teamleden.size(); i++) {

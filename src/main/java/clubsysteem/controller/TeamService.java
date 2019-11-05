@@ -70,53 +70,42 @@ public class TeamService {
                 Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
                 teamKoppelRepository.save(nieuweKoppel);
             } else {
-                if (role.equals("Speler")) {
-                    checkspeler:
-                    for (int i = 0; i < lidkoppels.size(); i++) {
-                        if (lidkoppels.get(i).getRole().equals(role)) {
-                            System.out.println("Speler zit al in een team.");
-                            break checkspeler;
-                        } else {
-                            System.out.println("Kan Speler toevoegen. Teamid: " + lidkoppels.get(i).getTeam().getId() + " Speler id is: " + geselecteerdLid.getId());
-                            Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
-                            teamKoppelRepository.save(nieuweKoppel);
-                        }
-                    }
-                } else if (role.equals("Trainer")) {
-                    checktrainer:
-                    for (int i = 0; i < lidkoppels.size(); i++) {
-                        if (lidkoppels.get(i).getRole().equals(role)) {
-                            if (lidkoppels.get(i).getTeam().getId() == geselecteerdTeam.getId()) {
-                                System.out.println("Trainer is al trainer van het team");
-                                break checktrainer;
+                switch (role) {
+                    case "Speler":
+                        for (Teamkoppel lidkoppel : lidkoppels) {
+                            if (lidkoppel.getRole().equals(role)) {
+                                System.out.println("Speler zit al in een team.");
+                                return;
                             } else {
-                                System.out.println("Kan trainer toevoegen. Teamid: " + lidkoppels.get(i).getTeam().getId() + " Trainer id is: " + geselecteerdLid.getId());
+                                System.out.println("Kan Speler toevoegen. Teamid: " + lidkoppel.getTeam().getId() + " Speler id is: " + geselecteerdLid.getId());
                                 Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
                                 teamKoppelRepository.save(nieuweKoppel);
                             }
-                        } else if (!containsRole(lidkoppels, "Trainer") & lidkoppels.get(i).getTeam().getId() == geselecteerdTeam.getId()) {
-                            System.out.println("Kan coach toevoegen op 2e plek. Teamid: " + lidkoppels.get(i).getTeam().getId() + " Trainer id is: " + geselecteerdLid.getId());
-                            Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
-                            teamKoppelRepository.save(nieuweKoppel);
                         }
-                    }
-                } else if (role.equals("Coach")) {
-                    checkcoach:
-                    for (int i = 0; i < lidkoppels.size(); i++) {
-                        if (lidkoppels.get(i).getRole().equals(role)) {
-                            if (lidkoppels.get(i).getTeam().getId() == geselecteerdTeam.getId()) {
-                                System.out.println("Coach is al trainer van het team");
-                                break checkcoach;
-                            } else {
-                                System.out.println("Kan coach toevoegen. Teamid: " + lidkoppels.get(i).getTeam().getId() + " Coach id is: " + geselecteerdLid.getId());
-                                Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
-                                teamKoppelRepository.save(nieuweKoppel);
+                        break;
+                    case "Trainer": {
+                        for (Teamkoppel lidkoppel : lidkoppels) {
+                            if (lidkoppel.getRole().equals(role) && lidkoppel.getTeam().getId() == teamId) {
+                                System.out.println("is al trainer van dit team");
+                                return;
                             }
-                        } else if (!containsRole(lidkoppels, "Coach") & lidkoppels.get(i).getTeam().getId() == geselecteerdTeam.getId()) {
-                            System.out.println("Kan coach toevoegen op 2e plek. Teamid: " + lidkoppels.get(i).getTeam().getId() + " Coach id is: " + geselecteerdLid.getId());
-                            Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
-                            teamKoppelRepository.save(nieuweKoppel);
                         }
+                        System.out.println("Trainer toegevoegd");
+                        Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
+                        teamKoppelRepository.save(nieuweKoppel);
+                        break;
+                    }
+                    case "Coach": {
+                        for (Teamkoppel lidkoppel : lidkoppels) {
+                            if (lidkoppel.getRole().equals(role) && lidkoppel.getTeam().getId() == teamId) {
+                                System.out.println("is al coach van dit team");
+                                return;
+                            }
+                        }
+                        System.out.println("Coach toegevoegd");
+                        Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
+                        teamKoppelRepository.save(nieuweKoppel);
+                        break;
                     }
                 }
             }

@@ -60,4 +60,12 @@ public class TrainingDTO {
     public List<String> getNamenSpelersAanwezig() {
         return namenSpelersAanwezig;
     }
+
+    public int getAantalSpelersAanwezig() {
+        return aantalSpelersAanwezig;
+    }
+
+    public void setAantalSpelersAanwezig(int aantalSpelersAanwezig) {
+        this.aantalSpelersAanwezig = aantalSpelersAanwezig;
+    }
 }
