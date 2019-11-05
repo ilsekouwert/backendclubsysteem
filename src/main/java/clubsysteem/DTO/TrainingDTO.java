@@ -8,6 +8,7 @@ import java.util.List;
 
 public class TrainingDTO {
     long id;
+    private String teamnaam;
     private LocalDate dag;
     private LocalTime tijd;
     private String plaats;
@@ -23,6 +24,7 @@ public class TrainingDTO {
         this.trainerAanwezig = training.isTrainerAanwezig();
         this.aantalSpelersAanwezig = training.getAantalSpelersAanwezig();
         this.namenSpelersAanwezig = training.krijgSpelersAanwezig(training);
+        this.teamnaam = training.getTeam().getTeamnaam();
     }
 
     public LocalDate getDag() {
@@ -67,5 +69,13 @@ public class TrainingDTO {
 
     public void setAantalSpelersAanwezig(int aantalSpelersAanwezig) {
         this.aantalSpelersAanwezig = aantalSpelersAanwezig;
+    }
+
+    public String getTeamnaam() {
+        return teamnaam;
+    }
+
+    public void setTeamnaam(String teamnaam) {
+        this.teamnaam = teamnaam;
     }
 }
