@@ -18,10 +18,10 @@ public class Team {
     private String teamType;
     private boolean wedstrijd;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Teamkoppel> koppels;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = {CascadeType.ALL}, orphanRemoval = true)
     @JsonIgnore
     private Set<Training> training;
 

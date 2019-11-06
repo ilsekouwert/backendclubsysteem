@@ -25,9 +25,6 @@ public class LidService {
     }
 
     public void deleteLid(Long id) {
-//        Lid lid = lidRepository.findById(id).get();
-//
-//        lidRepository.save(lid);
         lidRepository.deleteById(id);
     }
 
