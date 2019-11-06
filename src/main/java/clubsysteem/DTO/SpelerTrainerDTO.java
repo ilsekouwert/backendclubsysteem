@@ -34,12 +34,20 @@ public class SpelerTrainerDTO {
         Naam = naam;
     }
 
-    public String getTeamNaam() {
+    public String getIsSpelerInTeam() {
         return isSpelerInTeam;
     }
 
-    public void setTeamNaam(String teamNaam) {
-        this.isSpelerInTeam = teamNaam;
+    public void setIsSpelerInTeam(String isSpelerInTeam) {
+        this.isSpelerInTeam = isSpelerInTeam;
+    }
+
+    public List<String> getIsTrainerInTeam() {
+        return isTrainerInTeam;
+    }
+
+    public void setIsTrainerInTeam(List<String> isTrainerInTeam) {
+        this.isTrainerInTeam = isTrainerInTeam;
     }
 
     public List<String> getIsTrainerInTeams() {
