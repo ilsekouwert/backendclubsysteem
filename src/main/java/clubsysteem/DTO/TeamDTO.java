@@ -28,6 +28,7 @@ public class TeamDTO {
         this.teamType = team.getTeamType();
         this.coachNaam = team.krijgTrainerOfCoach(team, "Coach");
         this.speleraantal = team.berekenSpelerAantal(team);
+        this.wedstrijd = team.isWedstrijd();
     }
 
     public long getId() {
