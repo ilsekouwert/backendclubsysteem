@@ -14,6 +14,7 @@ public class LidDTO {
     private boolean isTrainer;
     private boolean isCoach;
     private String teamNaam;
+    private String trainniveau;
 
     public LidDTO(){}
     public LidDTO(Lid lid){
@@ -28,6 +29,7 @@ public class LidDTO {
             this.teamNaam = lid.krijgTeamNaam(lid);
             this.isTrainer = lid.isTrainer();
             this.isCoach = lid.isCoach();
+            this.trainniveau = lid.getTrainniveau();
     }
 
     public long getId() {
@@ -113,4 +115,9 @@ public class LidDTO {
     public String getTeamNaam() {
         return teamNaam;
     }
+
+    public String getTrainniveau() {
+        return trainniveau;
+    }
+
 }
