@@ -48,7 +48,7 @@ public class TrainingService {
 
         for (int i = 1; i < hoeveel; i++) {
             Training volgendeTraining = new Training();
-            volgendeTraining.setDag(eersteTraining.getDag().plusDays(7 * i + 1));
+            volgendeTraining.setDag(eersteTraining.getDag().plusDays(7 * i));
             volgendeTraining.setTijd(eersteTraining.getTijd());
             volgendeTraining.setTeam(eersteTraining.getTeam());
             volgendeTraining.setPlaats(eersteTraining.getPlaats());
