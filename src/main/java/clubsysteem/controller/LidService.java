@@ -17,7 +17,7 @@ public class LidService {
     TeamKoppelRepository teamKoppelRepository;
 
     public void saveLid(Lid aan) {
-        aan.setGeboortedatum(aan.getGeboortedatum().plusDays(1));
+        //aan.setGeboortedatum(aan.getGeboortedatum().plusDays(1));
         lidRepository.save(aan);
     }
 

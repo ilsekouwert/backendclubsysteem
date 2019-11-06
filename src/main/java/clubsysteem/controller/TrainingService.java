@@ -39,7 +39,7 @@ public class TrainingService {
         Optional<Team> team = teamRepository.findById(teamId);
         Team team2 = team.get();
         Training eersteTraining = trainingTemplate;
-        trainingTemplate.setDag(trainingTemplate.getDag().plusDays(1));
+        //trainingTemplate.setDag(trainingTemplate.getDag().plusDays(1));
         eersteTraining.setTeam(team2);
         trainingRepository.save(eersteTraining);
         LocalDate dag1 = eersteTraining.getDag();
