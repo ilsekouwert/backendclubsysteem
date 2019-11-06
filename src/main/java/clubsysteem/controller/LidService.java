@@ -1,9 +1,6 @@
 package clubsysteem.controller;
 
-import clubsysteem.DTO.LidDTO;
-import clubsysteem.DTO.CoachDTO;
-import clubsysteem.DTO.SpelerDTO;
-import clubsysteem.DTO.TrainerDTO;
+import clubsysteem.DTO.*;
 import clubsysteem.domein.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +57,12 @@ public class LidService {
             selectie.add(new SpelerDTO(lid));
         });
         return selectie;
+    }
+
+    public List<SpelerTrainerDTO> geefSpelerEnTrainers(){
+        List<SpelerTrainerDTO> leden = new ArrayList<>();
+        lidRepository.findAll().forEach(lid -> {leden.add(new SpelerTrainerDTO(lid));});
+        return leden;
     }
 
     public Iterable<TrainerDTO> findByTrainer(boolean trainer) {
