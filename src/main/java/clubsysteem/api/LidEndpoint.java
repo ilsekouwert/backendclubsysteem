@@ -1,9 +1,6 @@
 package clubsysteem.api;
 
-import clubsysteem.DTO.LidDTO;
-import clubsysteem.DTO.CoachDTO;
-import clubsysteem.DTO.SpelerDTO;
-import clubsysteem.DTO.TrainerDTO;
+import clubsysteem.DTO.*;
 import clubsysteem.controller.LidService;
 import clubsysteem.domein.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +39,11 @@ public class LidEndpoint {
     @GetMapping("/ledenlijst")
     public Iterable<LidDTO> geefLeden() {
         return lidService.geefMeLeden();
+    }
+
+    @GetMapping("/SpelerEnTrainers")
+    public List<SpelerTrainerDTO> geefSpelerEnTrainers(){
+        return lidService.geefSpelerEnTrainers();
     }
 
     @GetMapping("/spelerslijst/{speler}")
