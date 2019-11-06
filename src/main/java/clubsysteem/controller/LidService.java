@@ -9,24 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 
 @Service
 public class LidService {
     @Autowired
     LidRepository lidRepository;
     @Autowired
-    TeamRepository teamRepository;
+    TrainingRepository trainingRepository;
     @Autowired
     TeamKoppelRepository teamKoppelRepository;
 
     public void saveLid(Lid aan) {
-        aan.calculateAge();
+        aan.setGeboortedatum(aan.getGeboortedatum().plusDays(1));
         lidRepository.save(aan);
     }
 
     public void deleteLid(Long id) {
+//        Lid lid = lidRepository.findById(id).get();
+//
+//        lidRepository.save(lid);
         lidRepository.deleteById(id);
     }
 

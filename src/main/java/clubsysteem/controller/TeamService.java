@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -44,7 +45,7 @@ public class TeamService {
 
     public List<SpelerDTO> vindTeamLeden(Long team_id) {
         Optional<Team> team = teamRepository.findById(team_id);
-        List<Lid> leden = team.get().krijgAlleLedenInTeam(team.get());
+        List<Lid> leden = team.get().krijgAlleSpelersInTeam(team.get());
         List<SpelerDTO> spelers = new ArrayList<>();
         leden.forEach(lid -> {
             spelers.add(new SpelerDTO(lid));
@@ -52,44 +53,68 @@ public class TeamService {
         return spelers;
     }
 
-    public void LidToevoegenTeam(Long lidId, Long teamId, String role) {
-        Optional<Lid> lid = lidRepository.findById(lidId);
-        Optional<Team> team = teamRepository.findById(teamId);
-        List<Teamkoppel> teamkoppel = team.get().getKoppels();
-        List<Teamkoppel> lidkoppels = lid.get().getTeamkoppels();
+    public boolean containsRole(final List<Teamkoppel> list, final String role) {
+        return list.stream().map(Teamkoppel::getRole).filter(role::equals).findFirst().isPresent();
+    }
 
-        if (lid.isPresent() & team.isPresent()) {
+    public void LidToevoegenTeam(Long lidId, Long teamId, String role) throws NoSuchElementException {
+        try {
+            Optional<Lid> lid = lidRepository.findById(lidId);
+            Optional<Team> team = teamRepository.findById(teamId);
+            List<Teamkoppel> teamkoppel = team.get().getKoppels();
+            List<Teamkoppel> lidkoppels = lid.get().getTeamkoppels();
             Lid geselecteerdLid = lid.get();
             Team geselecteerdTeam = team.get();
+
             if (lidkoppels.size() == 0) {
                 Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
                 teamKoppelRepository.save(nieuweKoppel);
             } else {
-                if (role.equals("Speler")) {
-                    checkspeler:
-                    for (int i = 0; i < lidkoppels.size(); i++) {
-                        if (lidkoppels.get(i).getRole().equals(role)) {
-                            break checkspeler;
+                switch (role) {
+                    case "Speler":
+                        for (Teamkoppel lidkoppel : lidkoppels) {
+                            if (lidkoppel.getRole().equals(role)) {
+                                System.out.println("Speler zit al in een team.");
+                                return;
+                            } else {
+                                System.out.println("Kan Speler toevoegen. Teamid: " + lidkoppel.getTeam().getId() + " Speler id is: " + geselecteerdLid.getId());
+                                Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
+                                teamKoppelRepository.save(nieuweKoppel);
+                            }
                         }
+                        break;
+                    case "Trainer": {
+                        for (Teamkoppel lidkoppel : lidkoppels) {
+                            if (lidkoppel.getRole().equals(role) && lidkoppel.getTeam().getId() == teamId) {
+                                System.out.println("is al trainer van dit team");
+                                return;
+                            }
+                        }
+                        System.out.println("Trainer toegevoegd");
+                        System.out.println("Trainer toegevoegd");
+                        Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
+                        teamKoppelRepository.save(nieuweKoppel);
+                        break;
                     }
-                } else if (role.equals("Trainer") | role.equals("Coach")) {
-                    checkteam:
-                    for (int i = 0; i < lidkoppels.size(); i++) {
-                        if (lidkoppels.get(i).getTeam().equals(geselecteerdTeam) & lidkoppels.get(i).getRole().equals(role)) {
-                            break checkteam;
-                        }else if (!lidkoppels.get(i).getRole().equals(role)){
-                            continue;
+                    case "Coach": {
+                        for (Teamkoppel lidkoppel : lidkoppels) {
+                            if (lidkoppel.getRole().equals(role) && lidkoppel.getTeam().getId() == teamId) {
+                                System.out.println("is al coach van dit team");
+                                return;
+                            }
                         }
-                        else {
-                            Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
-                            teamKoppelRepository.save(nieuweKoppel);
-                        }
+                        System.out.println("Coach toegevoegd");
+                        Teamkoppel nieuweKoppel = new Teamkoppel(geselecteerdLid, geselecteerdTeam, role);
+                        teamKoppelRepository.save(nieuweKoppel);
+                        break;
                     }
                 }
             }
-        } else {
-            System.out.println("lid of team bestaat niet");
+        } catch (
+                NoSuchElementException e) {
+            System.out.println("Lid of team bestaat niet");
         }
+
     }
 
     public TeamDTO vindLid(Long teamId) {

@@ -1,5 +1,6 @@
 package clubsysteem.controller;
 
+import clubsysteem.DTO.LidDTO;
 import clubsysteem.domein.Lid;
 import clubsysteem.domein.Team;
 import clubsysteem.domein.Teamkoppel;
@@ -13,9 +14,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LidServiceTests {
 
     @TestConfiguration
-    static class testConfig{
+    static class testConfig {
         @Bean
         public LidService lidService() {
             return new LidService();
@@ -46,6 +51,7 @@ public class LidServiceTests {
         team1.setId(1);
         Lid lid1 = new Lid();
         lid1.setId(2);
+        lid1.setVoornaam("TestVoornaam");
         Teamkoppel koppel1 = new Teamkoppel();
         koppel1.setId(3);
         koppel1.setTeam(team1);
@@ -60,24 +66,44 @@ public class LidServiceTests {
         List<Teamkoppel> koppels = new ArrayList<>();
         koppels.add(koppel1);
 
+        when(lidRepository.save(leden.get(0))).thenReturn(leden.get(0));
+        when(lidRepository.findById(lid1.getId()))
+                .thenReturn(java.util.Optional.of(lid1));
+
         when(teamRepository.findById(team1.getId()))
                 .thenReturn(java.util.Optional.of((team1)));
-        when(lidRepository.findById(lid1.getId()))
-                .thenReturn(java.util.Optional.of((lid1)));
 
         when(teamKoppelRepository.findByTeamId(team1.getId()))
                 .thenReturn(koppels);
 
         when(teamKoppelRepository.findByLidId(lid1.getId()))
                 .thenReturn(koppels);
+
     }
 
     @Test
-    public void koppelShouldByFoundByTeamId() {
-        long teamid = 1;
+    public void LidKanAangemaaktWorden() {
+        Lid lid = new Lid();
+        lid.setGeboortedatum(LocalDate.now().minusYears(20));
+        lidService.saveLid(lid);
+        assertThat(lid.calculateAge(lid)).isEqualTo(20);
+    }
+
+    @Test
+    public void LidKanGevondenWorden() {
         long lidid = 2;
-        //List<Teamkoppel> kop = lidService.selectLid(lidid, teamid);
-        //assertThat(kop).isEqualTo(teamKoppelRepository.findByTeamId(teamid));
+        LidDTO lid = lidService.vindLid(lidid);
+        assertThat(lid.getVoornaam()).isEqualTo("TestVoornaam");
+    }
+
+    @Test
+    public void LidKanGeupdateWorden() {
+        long lidid = 2;
+        Lid lidUpdate = new Lid();
+        lidUpdate.setId(2);
+        lidUpdate.setAchternaam("UpdateAchternaam");
+        lidService.updateLid(lidUpdate);
+        assertThat(lidService.vindLid(lidid).getAchternaam()).isEqualTo("UpdateAchternaam");
     }
 
 }

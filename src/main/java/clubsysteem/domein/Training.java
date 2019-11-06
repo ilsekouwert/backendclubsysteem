@@ -2,6 +2,7 @@ package clubsysteem.domein;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,8 +15,6 @@ public class Training {
     private LocalDate dag;
     private LocalTime tijd;
     private String plaats;
-    private boolean trainerAanwezig;
-    private int aantalSpelersAanwezig;
 
     @ManyToOne
     private Team team;
@@ -31,14 +30,6 @@ public class Training {
         this.plaats = plaats;
     }
 
-    public boolean isTrainerAanwezig() {
-        return trainerAanwezig;
-    }
-
-    public void setTrainerAanwezig(boolean trainerAanwezig) {
-        this.trainerAanwezig = trainerAanwezig;
-    }
-
     public List<Lid> getLid() {
         return lid;
     }
@@ -47,7 +38,7 @@ public class Training {
         this.lid = lid;
     }
 
-    public void voegLidToe(Lid lid){
+    public void voegLidToe(Lid lid) {
         this.lid.add(lid);
     }
 
@@ -83,12 +74,55 @@ public class Training {
         this.team = team;
     }
 
-    public int getAantalSpelersAanwezig() {
-        return aantalSpelersAanwezig;
+    public List<Lid> krijgSpelersAanwezig(Training training) {
+        long teamTrainingId = training.getTeam().getId();
+        List<Lid> lijstKoppelsInTraining = training.getLid();
+        List<Lid> spelersInTraining = new ArrayList<>();
+        for (int i = 0; i < lijstKoppelsInTraining.size(); i++) {
+            List<Teamkoppel> teamkoppelsSpeler = lijstKoppelsInTraining.get(i).getTeamkoppels();
+            for (int j = 0; j < teamkoppelsSpeler.size(); j++) {
+                if (teamkoppelsSpeler.get(j).getRole().equals("Speler") & teamkoppelsSpeler.get(j).getTeam().getId() == teamTrainingId) {
+                    spelersInTraining.add(lijstKoppelsInTraining.get(i));
+                }
+            }
+        }
+        return spelersInTraining;
     }
 
-    public void updateSpelerAantal(int spelerinvoer) {
-        this.aantalSpelersAanwezig = this.aantalSpelersAanwezig + spelerinvoer;
+    public List<String> krijgNamenSpelersAanwezig(Training training) {
+        List<Lid> spelerlijstKoppels = krijgSpelersAanwezig(training);
+        List<String> spelerslijstNamen = new ArrayList<>();
+        if (spelerlijstKoppels.size() != 0) {
+            for (int i = 0; i < spelerlijstKoppels.size(); i++) {
+                String naam = spelerlijstKoppels.get(i).getVoornaam() + " " + spelerlijstKoppels.get(i).getAchternaam();
+                System.out.println(naam);
+                spelerslijstNamen.add(naam);
+            }
+        } else {
+            spelerslijstNamen.add("Niemand in training");
+            System.out.println("Er zit nog niemand in de training.");
+        }
+        return spelerslijstNamen;
     }
 
+    public int krijgAantalSpelersAanwezig(Training training) {
+        return krijgSpelersAanwezig(training).size();
+    }
+
+    public List<String> krijgNamemTrainerAanwezig(Training training) {
+        long teamTrainingId = training.getTeam().getId();
+        List<Lid> lijstKoppelsInTraining = training.getLid();
+        List<String> trainersInTraining = new ArrayList<>();
+        for (int i = 0; i < lijstKoppelsInTraining.size(); i++) {
+            List<Teamkoppel> teamkoppelsSpeler = lijstKoppelsInTraining.get(i).getTeamkoppels();
+            for (int j = 0; j < teamkoppelsSpeler.size(); j++) {
+                if (teamkoppelsSpeler.get(j).getRole().equals("Trainer") & teamkoppelsSpeler.get(j).getTeam().getId() == teamTrainingId) {
+                    trainersInTraining.add(lijstKoppelsInTraining.get(i).getVoornaam() + " " + lijstKoppelsInTraining.get(i).getAchternaam());
+                }
+            }
+        }
+        return trainersInTraining;
+    }
 }
+
+

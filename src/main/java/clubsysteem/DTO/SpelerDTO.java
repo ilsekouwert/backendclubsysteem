@@ -16,7 +16,7 @@ public class SpelerDTO {
         this.id = lid.getId();
         this.voornaam = lid.getVoornaam();
         this.achternaam = lid.getAchternaam();
-        this.age = lid.getAge();
+        this.age = lid.calculateAge(lid);
         this.geslacht = lid.getGeslacht();
         this.posities = lid.getPosities();
         this.niveau = lid.getNiveau();

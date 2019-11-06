@@ -1,5 +1,6 @@
 package clubsysteem.api;
 
+import clubsysteem.DTO.TrainingDTO;
 import clubsysteem.controller.TrainingService;
 import clubsysteem.domein.Training;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ public class TrainingEndpoint {
     TrainingService trainingService;
 
     @GetMapping ("/trainingen")
-    public Iterable<Training> geefTraining() {
+    public Iterable<TrainingDTO> geefTraining() {
         return trainingService.geefMeTrainingen();
     }
 
@@ -22,9 +23,9 @@ public class TrainingEndpoint {
         System.out.println(id + " de training is verwijderd");
     }
 
-    @PostMapping ("/trainingen/maaktraining/{hoeveel}/{team}")
-    public void maakTraining(@RequestBody Training training, @PathVariable int hoeveel, @PathVariable Long team){
-        trainingService.trainingenMaken(training, hoeveel, team);
+    @PostMapping ("/trainingen/maaktraining/{hoeveel}/{teamId}")
+    public void maakTraining(@RequestBody Training training, @PathVariable int hoeveel, @PathVariable Long teamId){
+        trainingService.trainingenMaken(training, hoeveel, teamId);
         System.out.println("Trainingen gemaakt");
     }
 

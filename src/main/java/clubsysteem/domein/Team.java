@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -18,7 +17,6 @@ public class Team {
     private String niveau;
     private String teamType;
     private boolean wedstrijd;
-    private int speleraantal;
 
     @OneToMany(mappedBy = "team")
     private List<Teamkoppel> koppels;
@@ -31,29 +29,34 @@ public class Team {
         return training;
     }
 
-    public String krijgTrainerOfCoach(Team team, String role) {
+    public List<String> krijgTrainerOfCoach(Team team, String role) {
         List<Teamkoppel> teamleden = team.getKoppels();
-        String geselecteerdeLid = "";
+        List<String> geselecteerdeLid = new ArrayList<>();
         if (teamleden.size() != 0) {
             for (int i = 0; i < teamleden.size(); i++) {
-                if (teamleden.get(i).getRole().equals(role)){
-                    geselecteerdeLid = teamleden.get(i).getLid().getVoornaam() + " " + teamleden.get(i).getLid().getAchternaam();
-                    break;
-                } else {
-                    geselecteerdeLid = "Team heeft geen " + role;
+                if (teamleden.get(i).getRole().equals(role)) {
+                    geselecteerdeLid.add(teamleden.get(i).getLid().getVoornaam() + " " + teamleden.get(i).getLid().getAchternaam());
                 }
             }
+        } else {
+            geselecteerdeLid.add("Team heeft geen " + role);
         }
         return geselecteerdeLid;
     }
 
-    public List<Lid> krijgAlleLedenInTeam(Team team){
+    public List<Lid> krijgAlleSpelersInTeam(Team team) {
         List<Teamkoppel> teamleden = team.getKoppels();
-        List<Lid> leden = new ArrayList<>();
+        List<Lid> spelers = new ArrayList<>();
         for (int i = 0; i < teamleden.size(); i++) {
-            leden.add(teamleden.get(i).getLid());
+            if (teamleden.get(i).getRole().equals("Speler")){
+                spelers.add(teamleden.get(i).getLid());}
         }
-        return leden;
+        return spelers;
+    }
+
+    public int berekenSpelerAantal(Team team){
+        List<Lid> speler = krijgAlleSpelersInTeam(team);
+        return speler.size();
     }
 
     public void setTraining(Set<Training> training) {
@@ -100,15 +103,8 @@ public class Team {
         this.wedstrijd = wedstrijd;
     }
 
-    public int getSpeleraantal() {
-        return speleraantal;
-    }
-
     public List<Teamkoppel> getKoppels() {
         return koppels;
     }
 
-    public void updateSpeleraantal(int spelerinvoer) {
-        this.speleraantal = this.speleraantal + spelerinvoer;
-    }
 }
