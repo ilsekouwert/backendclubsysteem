@@ -39,18 +39,19 @@ public class TrainingService {
         Optional<Team> team = teamRepository.findById(teamId);
         Team team2 = team.get();
         Training eersteTraining = trainingTemplate;
+        trainingTemplate.setDag(trainingTemplate.getDag().plusDays(1));
         eersteTraining.setTeam(team2);
         trainingRepository.save(eersteTraining);
-
         LocalDate dag1 = eersteTraining.getDag();
         LocalTime time1 = eersteTraining.getTijd();
         System.out.println(dag1 + " " + time1);
 
         for (int i = 1; i < hoeveel; i++) {
             Training volgendeTraining = new Training();
-            volgendeTraining.setDag(eersteTraining.getDag().plusDays(7 * i));
+            volgendeTraining.setDag(eersteTraining.getDag().plusDays(7 * i + 1));
             volgendeTraining.setTijd(eersteTraining.getTijd());
             volgendeTraining.setTeam(eersteTraining.getTeam());
+            volgendeTraining.setPlaats(eersteTraining.getPlaats());
             trainingRepository.save(volgendeTraining);
         }
     }

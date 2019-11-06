@@ -84,10 +84,9 @@ public class LidServiceTests {
     @Test
     public void LidKanAangemaaktWorden() {
         Lid lid = new Lid();
-        assertThat(lid.getAge()).isEqualTo(0);
         lid.setGeboortedatum(LocalDate.now().minusYears(20));
         lidService.saveLid(lid);
-        assertThat(lid.getAge()).isEqualTo(20);
+        assertThat(lid.calculateAge(lid)).isEqualTo(20);
     }
 
     @Test
