@@ -15,7 +15,6 @@ public class TrainingDTO {
     private List<String> trainerAanwezig;
     private List<String> namenSpelersAanwezig;
     private int aantalSpelersAanwezig;
-    private long teamId;
 
     public TrainingDTO(Training training){
         this.id = training.getId();
@@ -26,11 +25,6 @@ public class TrainingDTO {
         this.aantalSpelersAanwezig = training.krijgAantalSpelersAanwezig(training);
         this.namenSpelersAanwezig = training.krijgNamenSpelersAanwezig(training);
         this.teamnaam = training.getTeam().getTeamnaam();
-        this.teamId = training.getTeam().getId();
-    }
-
-    public long getTeamId() {
-        return teamId;
     }
 
     public List<String> getTrainerAanwezig() {
