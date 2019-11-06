@@ -1,5 +1,7 @@
 package clubsysteem.domein;
 
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
 import java.time.*;
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ public class Lid {
     private String telefoonnummer;
     private String email;
     private String wachtwoord;
-    private long age;
     private String geslacht;
     private boolean speler;
     private boolean trainer;
@@ -27,14 +28,18 @@ public class Lid {
     private String trainniveau;
     private LocalDate geboortedatum;
 
-    @OneToMany(mappedBy = "lid")
+    @OneToMany(mappedBy = "lid", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Teamkoppel> teamkoppels;
 
-    @ManyToMany(mappedBy = "lid")
+    @ManyToMany(mappedBy = "lid", cascade = {CascadeType.ALL})
     private List<Training> trainingen;
 
     public List<Teamkoppel> getTeamkoppels() {
         return teamkoppels;
+    }
+
+    public void setTrainingen(List<Training> trainingen) {
+        this.trainingen = trainingen;
     }
 
     public List<String> voorTrainerZoekTeams(Lid lid) {
@@ -85,7 +90,6 @@ public class Lid {
 
     public String krijgTeamNaam(Lid lid) {
         List<Teamkoppel> lidkoppel = lid.getTeamkoppels();
-        System.out.println("Hier zijn we " + lidkoppel);
         String teamnaam = "Speler heeft nog geen team.";
         if (lidkoppel != null) {
             for (int i = 0; i < lidkoppel.size(); i++) {
@@ -185,10 +189,6 @@ public class Lid {
         this.wachtwoord = wachtwoord;
     }
 
-    public long getAge() {
-        return age;
-    }
-
     public boolean isSpeler() {
         return speler;
     }
@@ -213,11 +213,12 @@ public class Lid {
         this.coach = coach;
     }
 
-    public void calculateAge() {
-        this.age = Period.between(geboortedatum, LocalDate.now()).getYears();
-    }
-
     public List<Training> getTrainingen() {
         return trainingen;
+    }
+
+    public int calculateAge(Lid lid) {
+        int leeftijd = Period.between(lid.getGeboortedatum(), LocalDate.now()).getYears();
+        return leeftijd;
     }
 }
